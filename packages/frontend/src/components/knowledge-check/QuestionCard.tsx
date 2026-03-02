@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CheckCircle2, XCircle, BookOpen, Bot, ChevronLeft } from 'lucide-react';
+import { CheckCircle2, XCircle, BookOpen, Bot, ChevronLeft, LayoutList } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { springBounce } from '../../lib/animations';
 import type { KnowledgeCheckQuestion } from '@playbook/shared';
@@ -25,6 +25,7 @@ interface QuestionCardProps {
   isLast: boolean;
   moduleSlug: string;
   readOnly?: boolean;
+  onBackToSummary?: () => void;
 }
 
 export default function QuestionCard({
@@ -41,6 +42,7 @@ export default function QuestionCard({
   isLast,
   moduleSlug,
   readOnly = false,
+  onBackToSummary,
 }: QuestionCardProps) {
   const { slug } = useParams<{ slug: string }>();
   const { available: aiAvailable, setChatOpen, setPendingMessage } = useAI();
@@ -229,22 +231,43 @@ export default function QuestionCard({
           ) : (
             <div />
           )}
-          {!checked ? (
-            <button
-              onClick={onCheck}
-              disabled={!hasAnswer}
-              className="px-6 py-2.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Check Answer
-            </button>
-          ) : (
-            <button
-              onClick={onNext}
-              className="px-6 py-2.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary-hover transition-colors"
-            >
-              {isLast ? (readOnly ? 'Back to Summary' : 'See Results') : 'Next Question'}
-            </button>
-          )}
+          <div className="flex items-center gap-2">
+            {readOnly && onBackToSummary && (
+              <button
+                onClick={onBackToSummary}
+                className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-text-secondary border border-border rounded-button hover:text-primary hover:border-primary transition-colors"
+              >
+                <LayoutList size={16} />
+                Back to Summary
+              </button>
+            )}
+            {!checked ? (
+              <button
+                onClick={onCheck}
+                disabled={!hasAnswer}
+                className="px-6 py-2.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Check Answer
+              </button>
+            ) : (
+              !isLast && (
+                <button
+                  onClick={onNext}
+                  className="px-6 py-2.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary-hover transition-colors"
+                >
+                  {readOnly ? 'Next Question' : 'Next Question'}
+                </button>
+              )
+            )}
+            {checked && !readOnly && isLast && (
+              <button
+                onClick={onNext}
+                className="px-6 py-2.5 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary-hover transition-colors"
+              >
+                See Results
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>

@@ -218,6 +218,11 @@ export default function KnowledgeCheckPage() {
     setMode('review');
   }, []);
 
+  // Handle "Back to Summary" from within the review
+  const handleBackToSummary = useCallback(() => {
+    setMode('summary');
+  }, []);
+
   // Handle "Retake the Test" — reset all state to start fresh
   const handleRetake = useCallback(() => {
     setAnswers({});
@@ -343,6 +348,7 @@ export default function KnowledgeCheckPage() {
               isLast={currentIndex === questions.length - 1}
               moduleSlug={moduleSlug || ''}
               readOnly={isReviewMode}
+              onBackToSummary={isReviewMode ? handleBackToSummary : undefined}
             />
           ) : null}
         </div>
