@@ -6,6 +6,7 @@ export interface NavLesson {
   order: number;
   estimated_duration_minutes: number;
   status: LessonStatus;
+  activity?: string;
 }
 
 export interface NavModule {

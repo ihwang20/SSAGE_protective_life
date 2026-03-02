@@ -90,6 +90,56 @@ function LessonStatusIcon({ status }: { status: string }) {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Circular activity progress ring                                    */
+/* ------------------------------------------------------------------ */
+
+function ActivityProgressRing({ done, total }: { done: number; total: number }) {
+  const r = 9;
+  const circ = 2 * Math.PI * r;
+  const fraction = total > 0 ? done / total : 0;
+  const offset = circ * (1 - fraction);
+  const allDone = done === total && total > 0;
+
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" className="flex-shrink-0">
+      <circle cx="11" cy="11" r={r} fill="none" stroke="currentColor" strokeWidth="2" className="text-primary/15" />
+      {total > 0 && (
+        <circle
+          cx="11" cy="11" r={r}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeDasharray={circ}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+          transform="rotate(-90 11 11)"
+          className={allDone ? 'text-success' : 'text-primary'}
+        />
+      )}
+      {allDone ? (
+        <polyline
+          points="7,11 10,14 15,8"
+          fill="none" stroke="currentColor" strokeWidth="1.5"
+          strokeLinecap="round" strokeLinejoin="round"
+          className="text-success"
+        />
+      ) : (
+        <text
+          x="11" y="14.5"
+          textAnchor="middle"
+          fontSize="5.5"
+          fontWeight="600"
+          className="fill-primary"
+          style={{ fontFamily: 'inherit' }}
+        >
+          {done}/{total}
+        </text>
+      )}
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Sidebar component                                                  */
 /* ------------------------------------------------------------------ */
 
@@ -354,15 +404,43 @@ export default function Sidebar({ open, collapsed, onClose, onCollapseToggle }: 
                               isExpanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
                             }`}
                           >
-                            {mod.lessons.map((lesson) => (
-                              <SidebarNavItem
-                                key={lesson.slug}
-                                to={`/courses/${slug}/modules/${mod.slug}/lessons/${lesson.slug}`}
-                                title={`${mod.order}.${lesson.order} ${lesson.title}`}
-                                status={lesson.status}
-                                locked={lockedLessons.has(`${mod.slug}:${lesson.slug}`)}
-                              />
-                            ))}
+                            {(() => {
+                              // Group lessons by activity (preserving order of first appearance)
+                              const groups: Array<{ activity: string | null; lessons: typeof mod.lessons }> = [];
+                              for (const lesson of mod.lessons) {
+                                const act = lesson.activity ?? null;
+                                const existing = groups.find((g) => g.activity === act);
+                                if (existing) {
+                                  existing.lessons.push(lesson);
+                                } else {
+                                  groups.push({ activity: act, lessons: [lesson] });
+                                }
+                              }
+                              return groups.map((group) => {
+                                const done = group.lessons.filter((l) => l.status === 'completed').length;
+                                return (
+                                  <div key={group.activity ?? '__ungrouped__'}>
+                                    {group.activity && (
+                                      <div className="flex items-center gap-2 px-4 pt-3 pb-1">
+                                        <ActivityProgressRing done={done} total={group.lessons.length} />
+                                        <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 truncate">
+                                          {group.activity}
+                                        </span>
+                                      </div>
+                                    )}
+                                    {group.lessons.map((lesson) => (
+                                      <SidebarNavItem
+                                        key={lesson.slug}
+                                        to={`/courses/${slug}/modules/${mod.slug}/lessons/${lesson.slug}`}
+                                        title={`${mod.order}.${lesson.order} ${lesson.title}`}
+                                        status={lesson.status}
+                                        locked={lockedLessons.has(`${mod.slug}:${lesson.slug}`)}
+                                      />
+                                    ))}
+                                  </div>
+                                );
+                              });
+                            })()}
                             {mod.has_knowledge_check && (
                               <SidebarNavItem
                                 key={`${mod.slug}-kc`}

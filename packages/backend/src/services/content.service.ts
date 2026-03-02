@@ -121,6 +121,7 @@ export function getCourseNavTree(courseSlug: string): CourseNavTree | null {
         .replace(/-/g, ' ')
         .replace(/\b\w/g, (c: string) => c.toUpperCase());
       let duration = 5;
+      let activity: string | undefined;
 
       const mdxPath = path.join(coursesDir(), courseSlug, 'modules', moduleSlug, 'lessons', `${lessonSlug}.mdx`);
       if (fs.existsSync(mdxPath)) {
@@ -132,6 +133,8 @@ export function getCourseNavTree(courseSlug: string): CourseNavTree | null {
             if (titleMatch) title = titleMatch[1].trim();
             const durationMatch = fmMatch[1].match(/^estimated_duration_minutes:\s*(\d+)/m);
             if (durationMatch) duration = parseInt(durationMatch[1], 10);
+            const activityMatch = fmMatch[1].match(/^activity:\s*"?([^"\n]+)"?/m);
+            if (activityMatch) activity = activityMatch[1].trim();
           }
         } catch {
           // Fall back to slug-derived title
@@ -144,6 +147,7 @@ export function getCourseNavTree(courseSlug: string): CourseNavTree | null {
         order: lessonIndex + 1,
         estimated_duration_minutes: duration,
         status: 'not_started' as const,
+        ...(activity ? { activity } : {}),
       };
     });
 
