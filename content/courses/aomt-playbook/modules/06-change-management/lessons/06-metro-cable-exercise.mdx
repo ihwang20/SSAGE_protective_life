@@ -1,0 +1,65 @@
+---
+title: "Metro Cable Exercise: Change Management"
+slug: "06-metro-cable-exercise"
+estimated_duration_minutes: 15
+order: 6
+---
+
+# Metro Cable Exercise: Change Management
+
+This exercise applies the full organizational change management toolkit to Metro Cable's AI Skill-Match Dispatch rollout. You will assess readiness, map influence networks, build a communications plan, and design the governance structure needed to drive adoption across all 18 zones.
+
+<Callout type="concept" title="Where You Are in the Engagement">
+The AI Skill-Match Dispatch solution is ready for full deployment across Metro Cable's 18 service zones. Pilot results in Zones 4, 7, and 12 were strong — FCR improved 11 points — but the pilot was conducted with volunteer coordinators who were pre-selected for their openness to technology. The remaining 15 zones include skeptics, veteran coordinators with deeply ingrained habits, and a middle management layer that was not involved in the pilot. The change management plan must address this reality.
+</Callout>
+
+## Part 1: Change Readiness Baseline
+
+<ReflectionPrompt
+  question="Assess Metro Cable's change readiness across the three dimensions — North Star Vision, Performance Management, and Resource Availability — using the 5-point scale. Based on your scores, which dimension requires the most deliberate attention in the change plan?"
+  answer="North Star Vision: Score 3 (Developing). The executive committee has approved the initiative and the business case is clear internally, but frontline coordinators in non-pilot zones have received no formal communication about why the change is happening. The FCR gap and its financial impact have not been translated into language that resonates with daily dispatcher experience ('you will spend less time on return visits' rather than '$4M in truck roll savings'). The vision exists at the top but has not cascaded. Attention needed: Develop a zone-level case for change that connects the dispatch AI to each coordinator's daily frustrations.
+
+Performance Management: Score 2 (Emerging). Metro Cable currently measures FCR and overall dispatch accuracy at the zone level, but coordinators have no individual visibility into their performance or the AI acceptance rate. The metrics needed to reinforce the right behaviors (acceptance rate, override reason quality, FCR by coordinator) do not yet exist in the performance management system. Attention needed: Build and deploy the coordinator-level performance dashboard before full rollout, so coordinators receive positive reinforcement from day one.
+
+Resource Availability: Score 3 (Developing). The dispatch operations team has capacity for training, but the L&D team is committed to three other initiatives in the same quarter. The data team has one allocated analyst for ongoing model support, which may be insufficient if multiple zones encounter model issues simultaneously. Attention needed: Protect coordinator training time by staggering zone rollout over 6 weeks rather than launching all 18 simultaneously. Pre-negotiate data team escalation SLAs.
+
+Most critical dimension: Performance Management (Score 2). Without individual feedback loops, coordinators will not know whether their behavior is aligned with the change objectives, and managers will not be able to coach effectively. Building the performance infrastructure before rollout is the single highest-leverage action in the change plan."
+/>
+
+## Part 2: Map the Influence Network
+
+<AIExercise
+  scenario="Metro Cable has 18 dispatch coordinators across its service zones. Based on the pilot debrief, the team has identified: three coordinators who were enthusiastic early adopters in the pilot and have informally mentored peers (Champions); two veteran coordinators in the largest zones who publicly questioned the AI's ability to handle complex jobs during a team meeting (Skeptics); and one operations manager who has relationships with coordinators across all 18 zones and is trusted for her fairness and pragmatism (Connector)."
+  instructions="Write an influence network engagement plan for Metro Cable's full deployment. Specify how you would activate the Champions, address the Skeptics, and leverage the Connector — and the specific actions, timing, and messages for each group."
+  referencePrompt={`Metro Cable Influence Network Engagement Plan:
+
+Champions (3 pilot coordinators — activate as Zone Ambassadors):
+Role: Serve as the credible peer voices for the change. Peers trust their honest assessment of the tool more than any top-down message.
+Specific actions: (1) Brief all three Champions before the first non-pilot zone launch. Share the full deployment plan and ask for their input — this reinforces their ownership. (2) Assign each Champion a 'buddy zone' where they join the onboarding session, share their pilot experience, and answer peer questions (not HR-scripted, their own words). (3) Recognize Champions publicly in the next all-hands update: name them, describe their contribution, and share one specific outcome they achieved with the tool. Recognition reinforces the behavior and elevates their informal authority.
+Message: "You have already proven this works. Your job now is to help your colleagues see what you saw."
+
+Skeptics (2 veteran coordinators — address with evidence and autonomy):
+Role: If converted, become the most credible endorsers in the organization. If alienated, become the most damaging resistors.
+Specific actions: (1) Schedule individual 30-minute sessions with each Skeptic before their zone goes live. Come prepared with their specific zone's data — the tier mismatch rate, the job types most affected, and the projected impact if the tool performs at pilot levels. Do not oversell; acknowledge the legitimate complexity of dispatch judgment. (2) Offer each Skeptic an extended 'advisory period': for the first 4 weeks, their acceptance rate is not included in zone metrics, and their overrides are treated as model feedback, not resistance. This removes the perceived threat of surveillance and reframes their expertise as an asset. (3) Check in weekly and share how their override reason codes are being used to improve the model. Skeptics respond to being taken seriously.
+Message: "We want to know where the tool gets it wrong — your experience is exactly what makes the model better."
+
+Connector (operations manager — leverage as credibility bridge):
+Role: She does not need to become a champion; she needs to be informed, aligned, and publicly neutral-to-positive. Her credibility means that if she appears skeptical, doubt spreads rapidly; if she appears supportive, hesitant coordinators follow.
+Specific actions: (1) Brief the Connector two weeks before the rollout communication goes out. Share the business case, the readiness assessment, and the rollout plan. Ask for her input on zone sequencing — she knows which zones have capacity and which are stressed. (2) Ask her to co-present the rollout plan at the pre-launch team meeting. Her presence signals that this is not being imposed from above. (3) Establish a weekly 15-minute check-in during the rollout period to surface concerns before they become rumors.
+Message: "We are rolling this out because the data says it works. We want your perspective on what we might be missing."`}
+/>
+
+## Part 3: Design the Communications Plan
+
+<ReflectionPrompt
+  question="Metro Cable's full deployment will reach 18 dispatch coordinators, 6 zone managers, the VP of Operations, and approximately 200 field technicians who will be indirectly affected by the new assignment logic. Design a communications plan covering the first 30 days of deployment. Specify the audience, channel, message, and timing for each communication."
+  answer="Day -14 (Two weeks before rollout begins): Audience: Zone managers. Channel: In-person briefing with slides. Message: Business case recap (the why), deployment schedule by zone, what managers are responsible for during rollout (coordinator coaching, first-week check-ins, escalation path), and how to answer coordinator questions they cannot answer ('I'll find out' is acceptable; speculation is not). Goal: Managers go into rollout as informed, confident sponsors.
+
+Day -7 (One week before first zone launch): Audience: All dispatch coordinators. Channel: Email + team meeting. Message: 'Starting next week, you will have a new AI assistant in your dispatch screen. It will suggest the top 3 technician options for each job, with a reason for each recommendation. You stay in control — you make every final assignment. Here's what it looks like.' Include a 2-minute screen recording of the interface. Goal: Remove the unknown. Coordinators should feel informed, not surprised.
+
+Day 0 (Launch day for each zone wave): Audience: Zone coordinators going live that week. Channel: Live onboarding session (30 minutes, led by Champion buddy + operations manager). Message: Walk through 5 real dispatch scenarios using the tool. Answer questions in real time. Explain the override process and the reason codes. Goal: Coordinators leave the session having used the tool successfully at least twice.
+
+Day 7 (First week post-launch): Audience: All coordinators. Channel: Email. Message: 'Here is how the first week went: [acceptance rate], [most common override reason], [one example where the AI recommendation led to a first-visit success]. Your feedback is being used to improve the model — here's how to submit it.' Goal: Close the feedback loop early to build trust that the team is listening.
+
+Day 30 (End of first month): Audience: All stakeholders including field technicians. Channel: All-hands update (async video for technicians). Message: 'One month in — here is what the data says. FCR in the first rollout zones improved X points. Here is what we heard from coordinators. Here is what we are adjusting.' Goal: Demonstrate that the rollout is working, that feedback is being acted on, and that the organization is learning together."
+/>

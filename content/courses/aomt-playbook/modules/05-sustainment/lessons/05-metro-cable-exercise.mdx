@@ -1,0 +1,73 @@
+---
+title: "Metro Cable Exercise: Sustainment"
+slug: "05-metro-cable-exercise"
+estimated_duration_minutes: 12
+order: 5
+---
+
+# Metro Cable Exercise: Sustainment
+
+This exercise designs a sustainment framework for Metro Cable's AI Skill-Match Dispatch solution. You will identify drift risks, build a monitoring cadence, and assign ownership so the FCR improvements hold beyond the initial deployment.
+
+<Callout type="concept" title="Where You Are in the Engagement">
+The AI Skill-Match Dispatch solution has completed its pilot in Zones 4, 7, and 12. First-visit resolution rates in those zones have improved by 11 percentage points over 90 days. The executive committee has approved full deployment across all 18 zones. Your job is to design the sustainment framework that keeps those gains from eroding over the next 12 months.
+</Callout>
+
+## Part 1: Map the Drift Risks
+
+<ReflectionPrompt
+  question="Metro Cable's AI Skill-Match Dispatch solution is subject to all four types of drift — process, model, priority, and knowledge. Identify one specific drift scenario for each type and describe the early warning signal that would indicate drift is occurring."
+  answer="Process drift: Dispatch coordinators develop a workaround where they bypass the AI recommendation screen for certain job types they consider 'routine,' reducing the system's coverage and data feedback loop. Early warning signal: AI recommendation acceptance rate drops below 70% for specific job type categories over two consecutive weeks.
+
+Model drift: Metro Cable upgrades its technician certification structure (e.g., introduces a new Tier 3.5 classification for a specialized fiber installation skill), and the dispatch model continues using the old tier mapping, producing systematically worse recommendations for the new job type. Early warning signal: First-visit resolution rate for fiber installation jobs declines more than 5 points over 30 days while other job types remain stable.
+
+Priority drift: The field service leadership team rotates, and the incoming VP of Operations is not familiar with the dispatch AI initiative, deprioritizes the monthly review cadence, and stops attending the performance governance meeting. Early warning signal: Monthly performance review meetings missed for two consecutive months with no reschedule.
+
+Knowledge drift: The two dispatch coordinators who served as power users and internal champions during the pilot are promoted to managerial roles, and new coordinators receive only a one-hour onboarding video with no live coaching. Early warning signal: Override reason codes shift toward 'other' (indicating coordinators do not recognize the available reason categories) and new coordinator acceptance rates are 15+ points below veterans."
+/>
+
+## Part 2: Design the Monitoring Cadence
+
+<AIExercise
+  scenario="Metro Cable's AI Skill-Match Dispatch is live across all 18 zones. The solution tracks: first-visit resolution rate by zone and job type, AI recommendation acceptance rate by coordinator, override reason code distribution, technician tier-to-job match rate, and model confidence score distribution."
+  instructions="Design a four-level monitoring cadence (daily, weekly, monthly, quarterly) for the Metro Cable dispatch sustainment framework. For each level, specify: who reviews what metric, what the decision trigger is, and what action is taken when the trigger fires."
+  referencePrompt={`Metro Cable Dispatch Sustainment Monitoring Cadence:
+
+Daily (Automated + Dispatcher Lead):
+Metric: AI recommendation acceptance rate and same-day FCR rate by zone.
+Owner: Dispatch operations lead (automated dashboard delivered at 7am).
+Decision trigger: Acceptance rate drops below 65% in any zone on any given day, or same-day FCR drops more than 8 points from prior 7-day average.
+Action: Dispatch lead investigates the zone — checks whether a specific coordinator is overriding frequently, whether a job type spike is stressing the model, or whether a data feed error has occurred. Escalates to field service manager if root cause is not clear within 4 hours.
+
+Weekly (Field Service Manager):
+Metric: Zone-level FCR trend (7-day rolling average), override reason code distribution, model confidence score summary.
+Owner: Field service manager per region.
+Decision trigger: Any zone's 7-day FCR average falls below 74% (the pre-pilot baseline) or override rate for a specific reason code exceeds 25% of total overrides.
+Action: Manager reviews with the dispatch team, identifies whether the issue is a model gap (escalate to data team for retraining review), a process gap (targeted coordinator coaching), or a data quality issue (escalate to IT for feed audit).
+
+Monthly (Operations Leadership):
+Metric: Company-wide FCR vs. target (85%), tier-match rate by zone, aggregate override and acceptance trends, model drift indicators (job type coverage vs. training data distribution).
+Owner: VP of Operations + AI solution owner.
+Decision trigger: Company-wide FCR below 80% for two consecutive weeks, or model drift score (distribution shift in job types or technician tiers) exceeds 10% from baseline.
+Action: Convene the AI Steering Group. Evaluate whether the model requires partial retraining, whether process reinforcement is needed, or whether the zone structure has changed sufficiently to warrant a full model refresh. Decisions documented and tracked to closure.
+
+Quarterly (Executive Steering Committee):
+Metric: FCR vs. 85% benchmark, annual truck roll reduction vs. projection, customer satisfaction score trend, model version log and retraining history, sustainment health scorecard.
+Owner: Chief Operating Officer + engagement sponsor.
+Decision trigger: FCR improvement trajectory not on track to reach 85% within the annual commitment window, or sustainment health scorecard flags two or more pillars as degraded.
+Action: Full sustainment review. Assess whether the roadmap should be accelerated (add real-time re-routing), whether additional investment in model training is required, or whether the change management plan needs to be refreshed for new staff cohorts.`}
+/>
+
+## Part 3: Assign the Three Pillars
+
+<ReflectionPrompt
+  question="Apply the three-pillar sustainment framework (Structure, Support, Feedback) to the Metro Cable dispatch solution. For each pillar, name the specific mechanism Metro Cable should put in place and who owns it."
+  answer="Structure — Organizational Alignment:
+Metro Cable must designate a named AI Solution Owner (a senior dispatch operations manager) who is accountable for the dispatch AI's ongoing performance. This role owns the monitoring cadence, chairs the monthly performance review, and escalates model issues to the data team. Without a named owner, accountability diffuses and drift accelerates. The Solution Owner should have a formal performance objective tied to FCR metrics so that sustainment is recognized, not treated as overhead.
+
+Support — Continuous Learning:
+Metro Cable should establish a quarterly skill refresher for all dispatch coordinators covering: how to interpret AI recommendation reasoning, common override scenarios and their correct reason codes, and how to submit feedback when the AI recommendation seems wrong. New coordinator onboarding should include a structured 30-day buddy program with a designated power user before independent dispatch responsibilities. A living FAQ and scenario library (updated after each monthly review) should be accessible in the dispatch platform.
+
+Feedback — Performance Visibility:
+Every coordinator should see their own acceptance rate, override distribution, and zone FCR trend in a personal performance dashboard updated weekly. Zone-level performance should be shared in the monthly field service manager briefing. FCR progress against the 85% benchmark should be visible to all stakeholders at the executive level. The feedback loop must be two-way: coordinators should have a mechanism to flag when an AI recommendation appears incorrect, and those flags must be reviewed and responded to within two business days to maintain engagement."
+/>

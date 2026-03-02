@@ -1,0 +1,64 @@
+---
+title: "Metro Cable Capstone Exercise"
+slug: "02-metro-cable-exercise"
+estimated_duration_minutes: 15
+order: 2
+---
+
+# Metro Cable Capstone Exercise
+
+This capstone exercise asks you to step back from any single phase and evaluate the Metro Cable engagement as a complete methodology cycle — from problem framing through sustainment. It is designed to surface the connections between modules and reinforce the repeatable operating system you can bring to your own work.
+
+<Callout type="concept" title="The Complete Engagement Arc">
+Over the course of this playbook, the Metro Cable engagement moved from a vague operational complaint ('we have a dispatch problem') to a validated root cause, a prioritized roadmap, a designed AI solution, a sustainment framework, and a change management plan. Every phase depended on the one before it. This exercise asks you to trace those dependencies and apply the same logic to your own context.
+</Callout>
+
+## Part 1: Trace the Methodology
+
+<ReflectionPrompt
+  question="For each of the six playbook phases, identify the single most important output the Metro Cable team produced and explain how it enabled the next phase. What would have broken down if that output had been weak or missing?"
+  answer="Phase 1 — Problem Framing (Module 02): Most important output: A quantified Problem Statement (62% vs. 85% FCR, 12-month window). This established the investigative scope and the success criterion for every phase that followed. Without it, the diagnostic phase would have had no boundary — the team could have analyzed anything. A weak Problem Statement produces a broad, unfocused diagnosis with no clear finish line.
+
+Phase 2 — Diagnosis (Module 02): Most important output: The validated root cause finding — technician-to-job tier mismatches are the primary driver of the FCR gap (67% of complex jobs in underperforming zones assigned to Tier 1–2 technicians). This converted a hypothesis into a defensible finding. Without validation, the prioritization phase would have been built on speculation. A weak diagnosis produces an opportunity set that addresses symptoms rather than causes.
+
+Phase 3 — Prioritization (Module 03): Most important output: The WSJF-scored opportunity roadmap (Duration Calibration first, then Skill-Match Dispatch, then Re-routing). This gave the executive committee a defensible, data-grounded sequence that aligned investment with value. Without structured prioritization, the team would have defaulted to the most politically visible or technically interesting opportunity, not the most impactful one.
+
+Phase 4 — Tool Development (Module 04): Most important output: The MVP User Stories for the Assistive dispatch recommendation engine. These translated the validated opportunity into a scoped, buildable artifact that the development team could act on immediately. Without clear user stories, development risks producing a technically impressive tool that does not fit into the coordinator's actual workflow.
+
+Phase 5 — Sustainment (Module 05): Most important output: The four-level monitoring cadence with named owners and decision triggers. This operationalized accountability so that the FCR improvements would persist beyond the engagement team's involvement. Without it, the solution would rely on individual heroics rather than institutional process, and drift would begin the moment attention shifted.
+
+Phase 6 — Change Management (Module 06): Most important output: The influence network engagement plan (Champions, Skeptics, Connector). This identified the non-obvious levers of adoption — the three power users whose credibility could unlock or block the other 15 zones. Without this, the rollout plan would have treated all coordinators as uniform recipients of training rather than as a differentiated social system with its own dynamics."
+/>
+
+## Part 2: Apply to Your Context
+
+<AIExercise
+  scenario="You are preparing to apply the AI-Enabled Problem Solving methodology to a challenge in your own organization. You have identified an operational gap that you believe has significant improvement potential, and you want to structure your initial approach before engaging stakeholders."
+  instructions="Using the Metro Cable engagement as a model, write a Problem Statement for your own operational challenge. Then identify the first three hypotheses you would test in your diagnostic phase, and name the data sources you would request to test each one. If you prefer to use Metro Cable's context, extend the case: Metro Cable has now asked you to apply the same methodology to their customer onboarding experience (currently 12 days average vs. a 5-day industry benchmark)."
+  referencePrompt={`Metro Cable Customer Onboarding Extension:
+
+Problem Statement: Metro Cable's new customer onboarding process takes an average of 12 days from order placement to first successful service activation, compared to the industry benchmark of 5 days. This 7-day gap is correlated with a 28% rate of order abandonment during the waiting period and an estimated $3.2M in annual lost revenue from customers who cancel before activation. The engagement team has 90 days to diagnose root causes and develop a prioritized opportunity set.
+
+Hypothesis 1 — Manual Handoff Bottlenecks: The 7-day gap is primarily driven by manual coordination steps between the sales, provisioning, and field scheduling teams. Each handoff introduces 1–2 days of queue delay. Data needed: Order workflow timestamps (sales-to-provisioning, provisioning-to-scheduling, scheduling-to-field dispatch), handoff rejection and re-submission rates, and average queue depth by team.
+
+Hypothesis 2 — Scheduling Capacity Constraints: New customer installations are lower priority than repair jobs in the field scheduling system, causing installations to wait 4–6 days for an available technician slot. Data needed: Field scheduling queue composition (installation vs. repair mix), technician certification distribution by job type, installation slot availability by zone and day of week, and historical cancellation timestamps vs. appointment wait times.
+
+Hypothesis 3 — Customer Communication Gaps: Customers abandon the process because they receive insufficient status updates during the waiting period and do not know what to expect. The abandonment is a perception problem, not just a delay problem. Data needed: Customer contact center records (inbound inquiry rate during onboarding), exit survey responses from abandoning customers, timing of abandonment relative to the last outbound communication, and NPS scores correlated with onboarding duration.
+
+These three hypotheses follow the same diagnostic logic as the dispatch problem: they are testable, data-grounded, and mutually exclusive enough to isolate the primary driver. The data requests are specific — each hypothesis points to a distinct dataset that would confirm or refute it.`}
+/>
+
+## Part 3: Reflect on the Operating System
+
+<ReflectionPrompt
+  question="The playbook closes with the statement: 'This is not a one-time engagement methodology — it is a repeatable operating system.' What does that mean in practice? What capabilities does an organization need to build internally to run this cycle independently, without an external engagement team?"
+  answer="A repeatable operating system requires three types of internal capability:
+
+Analytical Capability — the ability to frame problems with data: The organization must have people who can write C+T+O prompts, run and validate AI analyses, and distinguish between correlation and causation in operational data. This is not a technology capability — it is a practitioner skill. It requires recurring practice: running the diagnostic cycle on small problems before applying it to enterprise-scale challenges.
+
+Decision Infrastructure — the ability to prioritize with rigor: WSJF scoring and the Value vs. Complexity Matrix are only useful if the organization has the discipline to gather honest estimates of business value and implementation effort, and the governance to hold decisions to those estimates rather than reverting to political sequencing. Building this requires a visible commitment from leadership to methodology over intuition.
+
+Institutional Memory — the ability to sustain and learn across cycles: The sustainment framework only works if the organization captures what worked, what drifted, and why. This means maintaining a living repository of monitoring dashboards, model retraining logs, override reason code histories, and change management postmortems. Each engagement cycle should make the next one faster and more accurate. Organizations that treat each improvement initiative as standalone lose the compounding benefits of the methodology.
+
+The Metro Cable engagement demonstrated all three: the diagnostic team used curiosity-enabled analysis to surface the tier mismatch pattern (analytical capability); the WSJF process produced a defensible roadmap the executives trusted (decision infrastructure); and the sustainment framework with named owners and quarterly reviews created the conditions for lasting improvement (institutional memory). An organization that builds all three capabilities internally does not need an engagement team — it runs the cycle as standard operating practice."
+/>

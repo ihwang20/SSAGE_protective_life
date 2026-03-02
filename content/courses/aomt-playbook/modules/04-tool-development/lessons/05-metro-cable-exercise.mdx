@@ -1,0 +1,66 @@
+---
+title: "Metro Cable Exercise: Tool Development"
+slug: "05-metro-cable-exercise"
+estimated_duration_minutes: 15
+order: 5
+---
+
+# Metro Cable Exercise: Tool Development
+
+This exercise translates Metro Cable's highest-priority opportunity — AI Skill-Match Dispatch — into a structured solution design and development backlog. You will apply the AI First design principle, select the appropriate solution type, and generate the user stories needed to kick off a prototype sprint.
+
+<Callout type="concept" title="Where You Are in the Engagement">
+The prioritized roadmap is approved. The executive committee has green-lighted the AI Skill-Match Dispatch opportunity as Horizon 1 and asked the team to begin prototype development. Your job is to design the solution, select the right AI approach, and structure the MVP backlog so the development team can start sprinting immediately.
+</Callout>
+
+## Part 1: Choose the Solution Type
+
+<ReflectionPrompt
+  question="For Metro Cable's AI Skill-Match Dispatch solution, should the initial deployment be Agentic, Assistive, or Automation? What factors drive your recommendation, and what is the transition path?"
+  answer="The initial deployment should be Assistive. Three factors drive this recommendation:
+
+Decision complexity: Dispatch assignments involve real-time judgment — technician availability, geographic proximity, job urgency, and tier match must all be weighed simultaneously. The stakes of a wrong assignment (a return truck roll, a missed appointment, technician overtime) are non-trivial but recoverable. This places the solution firmly in the Assistive range — AI recommendations are valuable, but human review adds a risk buffer during the initial rollout.
+
+Error tolerance: An agentic system that autonomously assigns the wrong technician to a complex repair could cascade into customer escalations and SLA breaches. During the initial deployment, coordinator override capability is essential for catching model errors while trust is being built and training data is being accumulated.
+
+Trust and adoption: Dispatch coordinators have been managing assignments manually for years. An agentic system that removes their control without a trust-building phase risks rejection and workaround behaviors that undermine the solution. The Assistive mode allows coordinators to see AI reasoning, evaluate its accuracy, and gradually extend their acceptance threshold.
+
+Transition path: Define an accuracy threshold (e.g., coordinators accept AI recommendations without modification ≥85% of the time over a 90-day period) as the trigger to evaluate upgrading to a fully agentic model. This creates a data-driven, measurable path to full autonomy."
+/>
+
+## Part 2: Write the MVP User Stories
+
+<AIExercise
+  scenario="Metro Cable's dispatch coordinators currently assign jobs manually by scanning a spreadsheet of available technicians, checking their zone and certification tier, and making assignments based on experience. The new AI Skill-Match Dispatch system must integrate with the existing dispatch platform and certification database. The MVP will run in Assistive mode — the AI recommends, the coordinator approves."
+  instructions="Write an Epic and four MVP User Stories for the AI Skill-Match Dispatch prototype. Follow the format: 'As a [role], I want [capability] so that [benefit].' Include acceptance criteria for each story. Focus on the core recommendation and approval workflow."
+  referencePrompt={`Epic: AI Skill-Match Dispatch — Assistive Mode MVP
+
+This Epic delivers an AI-powered recommendation layer within Metro Cable's dispatch platform. The system matches incoming job requests to technicians by certification tier and proximity, surfacing ranked recommendations for coordinator review. MVP scope is limited to the recommendation and approval workflow; re-routing and autonomous assignment are deferred to subsequent releases.
+
+Story 1: As a dispatch coordinator, I want to see an AI-ranked list of the top 3 available technicians for each incoming job so that I can make faster, better-informed assignment decisions.
+Acceptance Criteria: Recommendations appear within 3 seconds of job creation. Each recommendation shows technician name, tier, current zone, distance to job site (minutes), and a match score (0–100). Recommendations are sorted by match score, not distance alone.
+
+Story 2: As a dispatch coordinator, I want to see the AI's reasoning for each recommendation so that I can evaluate its logic and build confidence in the system.
+Acceptance Criteria: Each recommendation card displays the top 2 factors driving the match score (e.g., "Tier 3 match for repair-complex job" and "12 minutes from job site"). A "Why this recommendation?" tooltip is available for additional detail.
+
+Story 3: As a dispatch coordinator, I want to approve, modify, or reject AI recommendations with a single action so that I can move quickly without navigating multiple screens.
+Acceptance Criteria: One-click approve assigns the top recommendation. Drag-to-assign allows selection of a non-recommended technician. Rejection requires a reason code from a predefined list (wrong zone, personal request, capacity concern, other). All actions are logged with timestamp and coordinator ID.
+
+Story 4: As a field service manager, I want to see a daily summary of AI recommendation acceptance rates by coordinator and zone so that I can track adoption and identify where coordinators are overriding the AI most often.
+Acceptance Criteria: Dashboard updates by 8am daily. Shows accept/modify/reject rates by coordinator, by zone, and overall. Filterable by date range and job type. Override reason codes are aggregated and ranked by frequency.`}
+/>
+
+## Part 3: Prototype Principles Check
+
+<ReflectionPrompt
+  question="Before the development team begins building, a senior stakeholder asks: 'What's the fastest way to show Metro Cable executives a working version of the dispatch AI?' Apply the four prototyping principles to design a 2-week prototype sprint plan."
+  answer="Applying the four principles to the Metro Cable dispatch AI sprint:
+
+Start with the Users: Before writing a line of code, spend Day 1–2 shadowing two dispatch coordinators through their morning assignment cycle. Document the exact sequence of decisions they make, the information they consult, and where they slow down. This observation data shapes the prototype's interface priorities.
+
+Show, Don't Tell: The Week 2 demo should show a live (or live-simulated) recommendation for a real incoming job in real time. Executives should see the job appear, the AI generate ranked recommendations with reasoning, and a coordinator approve one with a single click. This 60-second demo communicates more than any slide deck.
+
+Fail Fast, Learn Faster: Build the simplest possible recommendation engine first — even a rules-based tier-match algorithm that approximates the eventual AI model. The goal of Week 1–2 is to test the workflow and interface, not the model's predictive accuracy. Replace the placeholder with the trained model in Sprint 2.
+
+Data In, Decision Out: Every demo scenario should start with a real dispatch record (anonymized if needed) and end with a visible coordinator action (approve/modify/reject). Stakeholders must see the complete flow from incoming job to logged assignment decision — not just the recommendation step in isolation."
+/>

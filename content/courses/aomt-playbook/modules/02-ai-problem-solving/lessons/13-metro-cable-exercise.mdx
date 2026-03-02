@@ -1,0 +1,63 @@
+---
+title: "Metro Cable Exercise: Full Diagnostic"
+slug: "13-metro-cable-exercise"
+estimated_duration_minutes: 15
+order: 13
+activity: "AI-Enabled Research"
+---
+
+# Metro Cable Exercise: Full Diagnostic
+
+This exercise runs you through the complete AI-Empowered Problem Solving cycle using the Metro Cable case. You will move from problem framing through data analysis to opportunity synthesis — the same sequence the engagement team follows.
+
+<Callout type="concept" title="Where You Are in the Engagement">
+Metro Cable's executive committee has approved the engagement. You have the Problem Statement (dispatch accuracy at 62% vs. 85% benchmark, 12-month window). Now you must diagnose the root causes, validate them with data, and produce a prioritized list of opportunities for the next phase.
+</Callout>
+
+## Part 1: Build the Issues Tree
+
+The Issues Tree decomposes the problem into testable hypotheses. Metro Cable's dispatch accuracy gap could stem from many sources.
+
+<ReflectionPrompt
+  question="What are the three most likely first-level branches of an Issues Tree for Metro Cable's dispatch accuracy problem? For each branch, name one second-level hypothesis you would test."
+  answer="Branch 1 — Technician Factors: Hypothesis: Skill-to-job mismatches drive repeat visits (technicians assigned to job types outside their certification). Branch 2 — Routing and Scheduling: Hypothesis: Geographic zone assignments don't account for travel time variability, causing cascading delays. Branch 3 — Job Scoping Accuracy: Hypothesis: Inaccurate job duration estimates cause scheduling compression, forcing technicians to rush or skip diagnostic steps. Each branch suggests different data requests and AI analyses."
+/>
+
+## Part 2: Write a Curiosity-Enabled Analysis Prompt
+
+You have received 14 months of dispatch records (350,000+ rows) including technician IDs, job types, resolution outcomes, travel times, zone assignments, and technician certification levels.
+
+<AIExercise
+  scenario="You are analyzing Metro Cable's dispatch records. Initial exploration has revealed that Zones 4, 7, and 12 have first-visit resolution rates 18–22% below company average. You want to understand whether technician certification level — rather than routing — is the primary driver."
+  instructions="Write a curiosity-enabled analysis prompt using the Context + Task + Output (C+T+O) framework. Your prompt should investigate the relationship between technician certification level and first-visit resolution rate, controlling for job type complexity."
+  referencePrompt={`Context: I have 14 months of Metro Cable dispatch records (350,000+ rows) covering technician IDs, job types (installation, repair-basic, repair-complex, emergency), resolution outcomes (first-visit fix vs. return visit required), and each technician's certification tier (Tier 1–4, where Tier 4 is highest). Zones 4, 7, and 12 are underperforming at 18–22% below average first-visit resolution rates.
+
+Task: Calculate first-visit resolution rates by technician certification tier for each job type category. Then compare the distribution of technician tiers assigned to jobs in Zones 4, 7, and 12 versus top-performing zones. Control for job complexity by analyzing each job type separately. Identify whether lower-tier technicians are being disproportionately assigned to complex jobs in the underperforming zones.
+
+Output: Return a table showing first-visit resolution rate by (tier × job type) combination. Separately, show the zone-level tier assignment distribution as a percentage breakdown. Flag any zone-job type-tier combinations where mismatches appear to exceed 30% of assignments. Include a two-sentence interpretation of whether certification mismatch or another factor appears to be the primary driver in the underperforming zones.`}
+/>
+
+## Part 3: Analysis Validation
+
+Before presenting findings to the Metro Cable executive committee, you must validate your conclusions.
+
+<ReflectionPrompt
+  question="Your AI analysis shows that 67% of repair-complex jobs in Zone 7 are assigned to Tier 1–2 technicians. Before concluding this is the root cause of underperformance, what alternative explanations would you test, and what data would you need to rule them out?"
+  answer="Alternative 1: Zone 7 may have an unusually high proportion of complex jobs in its territory (older infrastructure, business district). Test: Compare job mix composition across zones — if Zone 7 has 3× the rate of repair-complex jobs as average zones, the tier mismatch may reflect scheduling capacity limits, not poor assignment logic. Alternative 2: Zone 7 may have a geographic challenge (traffic, distance) that inflates travel time regardless of technician tier. Test: Analyze travel time variance between Zones with similar job mixes. Alternative 3: The certification database may be outdated — Tier classifications may not reflect actual skill levels if certifications haven't been refreshed in 2+ years. Test: Check certification update dates and cross-reference with on-the-job performance history. Ruling out alternatives requires pulling complementary datasets, not just the dispatch records."
+/>
+
+## Part 4: Opportunity Synthesis
+
+<AIExercise
+  scenario="Your diagnostic is complete. You have validated three root causes: (1) technician-to-job skill mismatches in Zones 4, 7, and 12; (2) systematic underestimation of complex job durations by 35–45 minutes; and (3) no real-time re-routing when technicians fall behind schedule. The executive committee needs a synthesized list of opportunities to bring to the next phase."
+  instructions="Write a concise opportunity synthesis statement — no more than 200 words — that frames these three findings as actionable opportunities with estimated impact on the 62% dispatch accuracy gap. Quantify the potential improvement for each opportunity where possible."
+  referencePrompt={`Three validated opportunities can close the majority of Metro Cable's 23-point dispatch accuracy gap:
+
+Opportunity 1 — AI Skill-Match Dispatch (estimated +10–12 points): Implementing an AI model that matches technician certification tier to job complexity at assignment time. In pilot analysis, jobs assigned within the correct tier have 91% first-visit resolution vs. 71% for mismatched assignments — a 20-point difference that, applied across all zones, would recover an estimated 10–12 accuracy points.
+
+Opportunity 2 — Dynamic Job Duration Calibration (estimated +6–8 points): Recalibrating job duration estimates using actual completion time distributions by job type and complexity. Current estimates assume 45-minute complex repairs; actual median is 87 minutes. Correcting this alone would reduce scheduling compression by 40%, recovering an estimated 6–8 accuracy points.
+
+Opportunity 3 — Real-Time Re-routing (estimated +3–5 points): Deploying an AI-driven re-routing alert when a technician is more than 20 minutes behind schedule, triggering automated reassignment from a standby pool. This addresses cascade failures that currently propagate through the afternoon schedule.
+
+Combined, these three opportunities project a 19–25 point accuracy improvement, bringing Metro Cable to or above the 85% industry benchmark.`}
+/>

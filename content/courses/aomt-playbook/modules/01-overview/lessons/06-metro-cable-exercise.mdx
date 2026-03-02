@@ -1,0 +1,49 @@
+---
+title: "Metro Cable Exercise: Applying the Playbook"
+slug: "06-metro-cable-exercise"
+estimated_duration_minutes: 10
+order: 6
+---
+
+# Metro Cable Exercise: Applying the Playbook
+
+You have just completed the Playbook Overview. This exercise grounds everything you've learned in the Metro Cable case study — a real-world scenario you'll carry through every module of this course.
+
+<Callout type="concept" title="Metro Cable: The Starting Point">
+Metro Cable is a regional cable provider facing declining customer satisfaction scores. Their executive committee has 12 months before the next Public Service Commission Rate Case hearing — a hard deadline that makes the timeline a binding constraint, not a preference.
+
+**The presenting problem:** Field service dispatch accuracy sits at 62%, well below the industry benchmark of 85%. Every missed appointment, rerouted technician, and repeat visit compounds both cost and customer dissatisfaction.
+</Callout>
+
+## Part 1: Apply the Guiding Principles
+
+Before any analysis begins, practitioners must establish the right mindset. Consider how the two guiding principles apply to Metro Cable.
+
+<ReflectionPrompt
+  question="How does the 'Data First' principle change how you'd approach Metro Cable's dispatch problem? What data would you need before drawing any conclusions about the root cause?"
+  answer="Data First means resisting the urge to jump to solutions like 'we need better routing software.' Instead, you'd demand to see the data: dispatch logs, technician assignments, job completion records, geographic coverage maps, and customer satisfaction surveys by zone. Only after examining patterns in that data — which zones underperform, which technicians have lower first-visit resolution rates, whether the problem spikes at certain times — would you begin forming hypotheses about root causes. The data might reveal that the problem isn't routing software at all, but technician skill mismatches or inaccurate job time estimates."
+/>
+
+<ReflectionPrompt
+  question="How does 'AI First' change the scale of analysis possible for Metro Cable versus a traditional consulting approach?"
+  answer="Traditionally, a team might manually sample a few hundred dispatch records and build a spreadsheet model. AI First means ingesting all 350,000+ dispatch records and asking iterative questions across the full dataset in hours rather than weeks. AI can surface patterns that would be invisible to human analysts at that scale — for example, that dispatch accuracy drops by 23% on routes where technicians must cross a specific highway during rush hour, or that a particular job type consistently underestimates required time by 40 minutes. This depth of analysis at scale is only feasible with an AI-first approach."
+/>
+
+## Part 2: Map Metro Cable to the Playbook Structure
+
+The playbook has three sections. Use this exercise to map where Metro Cable's engagement fits.
+
+<AIExercise
+  scenario="Metro Cable's executive committee has asked your team to scope a 12-month engagement. They want to understand the dispatch problem, fix it, and ensure the fix lasts — all before the PSC Rate Case hearing."
+  instructions="Using the three-section playbook structure (Practitioners Playbook → Tool Development → Sustainment & Change Management), outline what work belongs in each section for the Metro Cable engagement. Be specific about the sequence and why the order matters."
+  referencePrompt={`Section I — Practitioners Playbook (Months 1–3):
+Diagnose the dispatch accuracy gap using AI-powered analysis of 14+ months of dispatch records. Build a Problem Statement anchored on the 62% vs. 85% accuracy gap. Develop an Issues Tree to identify root causes (skill mismatch, geographic routing, job time estimation, scheduling system limitations). Run curiosity-enabled analysis to validate hypotheses. Synthesize findings into ranked opportunities.
+
+Section II — Tool Development (Months 3–8):
+Design and prototype an AI dispatch optimization tool. Begin with an assistive model (AI recommends, coordinator approves) to build trust and generate labeled training data. Apply agile delivery in two-week sprints with coordinator feedback loops. Transition to higher autonomy once accuracy thresholds are validated.
+
+Section III — Sustainment & Change Management (Months 6–12, overlapping):
+Run change readiness assessment early (Month 2) to design the change plan in parallel with tool development. Define sustainment structure: dispatch team lead as Solution Owner, IT as Model Monitor, Operations as Feedback Steward. Establish KPI dashboards. Launch communications plan targeting field technicians and coordinators before go-live. Complete governance framework before PSC hearing.
+
+The order matters because diagnosis must precede tool design — you cannot build the right solution without understanding the validated root cause. Change management must begin before go-live, not after, because resistance discovered at deployment is already too late.`}
+/>
