@@ -15,9 +15,34 @@ The diagnostic phase is complete. Three root causes have been validated. You mus
 
 ## Part 1: Opportunity Documentation
 
-<AIExercise
-  scenario="You are preparing the opportunity documentation for Metro Cable's highest-priority finding: technician-to-job skill mismatches in Zones 4, 7, and 12. Your analysis showed that 67% of repair-complex jobs in these zones are assigned to Tier 1–2 technicians, versus 22% in top-performing zones. Jobs assigned within the correct tier have 91% first-visit resolution versus 71% for mismatched assignments."
-  instructions="Using the 8-element opportunity documentation template (Title, Problem Summary, Quantified Impact, Affected Stakeholders, Solution Options, Dependencies, Risks and Mitigations, Supporting Evidence), write a complete opportunity document for the AI Skill-Match Dispatch opportunity. Include at least two solution options with different investment and timeline profiles."
+<MultipleChoice
+  question="You are writing the Quantified Impact section for the AI Skill-Match Dispatch opportunity document. Which statement is strongest?"
+  options={[
+    {
+      id: "a",
+      label: "\"Fixing skill mismatches will significantly improve first-visit resolution rates across the affected zones.\"",
+      correct: false,
+      explanation: "'Significantly' is not measurable, and 'affected zones' is vague. An opportunity document must quantify impact using the validated data so the executive committee can compare opportunities and authorize investment. Qualitative language leaves the decision to intuition rather than evidence."
+    },
+    {
+      id: "b",
+      label: "\"Correct-tier assignments produce 91% FCR vs. 71% for mismatched assignments — a 20-point gap. Applied to the 67% of complex jobs currently mismatched in Zones 4, 7, and 12, correcting assignments is estimated to recover 6–8 FCR points from the company-wide 23-point gap.\"",
+      correct: true,
+      explanation: "Correct. This statement uses the validated data points (91% vs. 71% FCR, 67% mismatch rate), applies them to the specific scope (Zones 4, 7, 12), and projects a bounded impact range against the known gap. It gives decision-makers exactly what they need: evidence, scope, and magnitude."
+    },
+    {
+      id: "c",
+      label: "\"The impact is difficult to quantify without a pilot, but skill matching has shown strong results in similar field service deployments.\"",
+      correct: false,
+      explanation: "The diagnostic already produced the data needed to quantify impact. Deferring to a pilot or citing external analogies ignores validated findings — and signals to the executive committee that the diagnostic phase did not produce actionable conclusions."
+    },
+    {
+      id: "d",
+      label: "\"Zones 4, 7, and 12 are underperforming, and technician skill is one possible contributing factor among several that have not yet been ruled out.\"",
+      correct: false,
+      explanation: "The diagnostic phase already validated this root cause. Describing it as 'possible' and 'not yet ruled out' misrepresents the state of the evidence and undermines the credibility of the entire prioritization package."
+    }
+  ]}
 />
 
 ## Part 2: WSJF Scoring

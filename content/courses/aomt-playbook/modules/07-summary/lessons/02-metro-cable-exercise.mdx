@@ -45,11 +45,36 @@ The Metro Cable engagement moved from a vague operational complaint to a validat
   ]}
 />
 
-## Part 2: Apply to Your Context
+## Part 2: Apply the Methodology
 
-<AIExercise
-  scenario="You are applying the AI-Enabled Problem Solving methodology to a challenge in your own organization. You have identified an operational gap that you believe has significant improvement potential."
-  instructions="Using the Metro Cable engagement as a model, write a Problem Statement for your own operational challenge. Then identify the first three hypotheses you would test in your diagnostic phase and name the specific data sources you would request to test each one. If you prefer to stay in the Metro Cable context, extend it: Metro Cable has asked you to apply the same methodology to their customer onboarding process (currently 12 days average vs. a 5-day industry benchmark)."
+<MultipleChoice
+  question="Metro Cable has asked you to apply the same methodology to their customer onboarding process (currently 12 days average vs. a 5-day industry benchmark). Which Problem Statement correctly frames this as the start of a new diagnostic engagement?"
+  options={[
+    {
+      id: "a",
+      label: "\"Metro Cable needs to implement automated onboarding workflows to reduce the 12-day average to 5 days within the year.\"",
+      correct: false,
+      explanation: "This is a solution statement, not a Problem Statement. It prescribes automation before any diagnostic work has identified what is causing the 7-day gap. The root cause may have nothing to do with automation — it could be a handoff delay, a missing approval step, or a data entry bottleneck."
+    },
+    {
+      id: "b",
+      label: "\"Customer onboarding averages 12 days versus a 5-day industry benchmark — a 7-day gap associated with elevated early churn. This engagement will diagnose the root causes of the delay and develop a prioritized roadmap to close the gap within 12 months.\"",
+      correct: true,
+      explanation: "Correct. This Problem Statement quantifies the gap (7 days), connects it to a business consequence (early churn), and frames the engagement as a diagnostic — not a solution implementation. It mirrors the Metro Cable dispatch Problem Statement structure: gap + consequence + engagement scope, without prescribing a solution."
+    },
+    {
+      id: "c",
+      label: "\"Onboarding is slow because internal processes are inefficient and departments don't coordinate well. Better cross-department communication is the fix.\"",
+      correct: false,
+      explanation: "This asserts root causes before any diagnostic work has been done — a direct violation of the Data First principle. 'Process inefficiency' and 'poor coordination' are assumptions, not validated findings. The Problem Statement must describe the gap, not prescribe its cause."
+    },
+    {
+      id: "d",
+      label: "\"The onboarding team should be retrained and given better tools. A 5-day target is achievable with the right investment.\"",
+      correct: false,
+      explanation: "This prescribes both a solution (retraining + tools) and a conclusion (target is achievable) before any investigation. A Problem Statement must remain solution-neutral so the diagnostic can surface actual root causes without bias toward a predetermined answer."
+    }
+  ]}
 />
 
 ## Part 3: The Repeatable Operating System

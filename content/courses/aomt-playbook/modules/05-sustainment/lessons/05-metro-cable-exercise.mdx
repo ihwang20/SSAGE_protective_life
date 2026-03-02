@@ -45,11 +45,36 @@ The AI Skill-Match Dispatch solution has completed its pilot in Zones 4, 7, and 
   ]}
 />
 
-## Part 2: Design the Monitoring Cadence
+## Part 2: Assign the Right Cadence
 
-<AIExercise
-  scenario="Metro Cable's AI Skill-Match Dispatch is live across all 18 zones. The solution tracks: first-visit resolution rate by zone and job type, AI recommendation acceptance rate by coordinator, override reason code distribution, technician tier-to-job match rate, and model confidence score distribution."
-  instructions="Design a four-level monitoring cadence (daily, weekly, monthly, quarterly) for the Metro Cable dispatch sustainment framework. For each level, specify: who reviews what metric, what the decision trigger is, and what action is taken when the trigger fires. Format your response as four clearly labeled sections."
+<MultipleChoice
+  question="Metro Cable's sustainment framework uses a four-level cadence: daily, weekly, monthly, and quarterly. Which metric belongs at the daily review level?"
+  options={[
+    {
+      id: "a",
+      label: "Company-wide first-visit resolution rate vs. the 85% benchmark.",
+      correct: false,
+      explanation: "FCR is a lagging outcome metric — it reflects the cumulative effect of many decisions over time and is not actionable at a daily granularity. It belongs in the weekly or monthly review where trends are visible and intervention decisions can be made."
+    },
+    {
+      id: "b",
+      label: "AI recommendation acceptance rate by coordinator — flagging any coordinator who drops below 60% in the past 24 hours.",
+      correct: true,
+      explanation: "Correct. Acceptance rate is a leading behavioral signal that can change rapidly and requires a fast response. A coordinator who suddenly drops to 50% acceptance may have found a workaround, encountered a tool issue, or need coaching. Daily monitoring allows intervention before the behavior becomes a habit that spreads to peers."
+    },
+    {
+      id: "c",
+      label: "Model confidence score distribution across all job types — reviewed to determine whether retraining is needed.",
+      correct: false,
+      explanation: "Model confidence score distribution is a quarterly metric. Meaningful drift from data pattern shifts takes months to develop; reviewing this daily adds noise without actionable signal and would trigger false alarms."
+    },
+    {
+      id: "d",
+      label: "Year-over-year FCR improvement compared to the pre-deployment baseline.",
+      correct: false,
+      explanation: "Year-over-year comparisons are strategic metrics reviewed quarterly or annually. They require enough historical data to reveal trend movement and are not actionable on a daily basis."
+    }
+  ]}
 />
 
 ## Part 3: Assign Pillar Ownership

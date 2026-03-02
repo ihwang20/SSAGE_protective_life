@@ -41,6 +41,8 @@ export default function LessonPage() {
     if (!navTree || !course || !moduleSlug || !lessonSlug) return false;
     const isLinear = course.navigation_mode === 'linear';
     const requireKC = course.require_knowledge_checks ?? false;
+    // Locking disabled
+    return false;
     if (!isLinear && !requireKC) return false;
 
     const allLessons: Array<{ modSlug: string; slug: string; status: string }> = [];

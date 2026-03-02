@@ -37,11 +37,36 @@ The prioritized roadmap is approved. The executive committee has green-lighted t
   ]}
 />
 
-## Part 2: Write the MVP User Stories
+## Part 2: Evaluate the User Stories
 
-<AIExercise
-  scenario="Metro Cable's dispatch coordinators currently assign jobs by scanning a spreadsheet of available technicians, checking zone and certification tier, and making assignments based on experience. The new AI Skill-Match Dispatch system must integrate with the existing dispatch platform and certification database. The MVP will run in Assistive mode — the AI recommends, the coordinator approves."
-  instructions="Write an Epic and four MVP User Stories for the AI Skill-Match Dispatch prototype. Follow the format: 'As a [role], I want [capability] so that [benefit].' Include acceptance criteria for each story. Focus on the core recommendation and approval workflow — scope the MVP tightly."
+<MultipleChoice
+  question="The MVP runs in Assistive mode — the AI recommends, the coordinator approves. Which of the following is a well-formed MVP User Story for the AI Skill-Match Dispatch system?"
+  options={[
+    {
+      id: "a",
+      label: "\"Build a recommendation engine that shows coordinators which technician to assign.\"",
+      correct: false,
+      explanation: "This is a feature description, not a User Story. It is missing the role, the benefit, and acceptance criteria. Without a 'so that' clause, the development team has no way to verify whether the feature delivers its intended value."
+    },
+    {
+      id: "b",
+      label: "\"As a dispatch coordinator, I want to see the AI's top-3 technician recommendations with certification tier and travel time for each job, so that I can confirm the best match without switching screens. Acceptance criteria: recommendations appear within 3 seconds of job entry; each shows tier, distance, and AI confidence score; coordinator can override with a required reason code.\"",
+      correct: true,
+      explanation: "Correct. This story follows the full format (role, capability, benefit), includes testable acceptance criteria, scopes tightly to the Assistive-mode core workflow, and captures the override-with-reason-code requirement that generates training data for model improvement."
+    },
+    {
+      id: "c",
+      label: "\"As a dispatch coordinator, I want the AI to automatically assign the best technician to every job so that I can focus on exception handling only.\"",
+      correct: false,
+      explanation: "This describes Agentic mode — the AI assigns without coordinator approval. The MVP is Assistive. Agentic mode is a future phase, earned after the model's accuracy has been validated in production over a meaningful sample."
+    },
+    {
+      id: "d",
+      label: "\"As a field supervisor, I want a real-time dashboard of all AI assignment recommendations so that I can monitor coordinator compliance with AI suggestions.\"",
+      correct: false,
+      explanation: "This is a supervisor monitoring story — not part of the core coordinator recommendation-and-approval workflow the MVP must deliver first. Monitoring dashboards are Phase 2 scope, once the core workflow is validated and operating."
+    }
+  ]}
 />
 
 ## Part 3: Prototyping

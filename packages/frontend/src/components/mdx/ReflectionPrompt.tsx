@@ -26,13 +26,20 @@ export default function ReflectionPrompt({ question, answer, children }: Reflect
   const handleSubmit = async () => {
     if (!userResponse.trim() || streaming || !courseSlug) return;
 
-    const prompt = [
-      'You are a learning coach. A learner was asked the following reflection question:\n',
-      `**Question:** ${question}\n`,
-      `**Learner's response:** ${userResponse}\n`,
-      `**Sample/expected answer:** ${sampleAnswer}\n`,
-      'Please provide a brief, encouraging comparison (3-5 sentences). Highlight what the learner got right, note any key points they may have missed from the sample answer, and offer one suggestion for deepening their understanding. Be concise and supportive.',
-    ].join('\n');
+    const prompt = sampleAnswer
+      ? [
+          'You are a learning coach. A learner was asked the following reflection question:\n',
+          `**Question:** ${question}\n`,
+          `**Learner's response:** ${userResponse}\n`,
+          `**Sample/expected answer:** ${sampleAnswer}\n`,
+          'Please provide a brief, encouraging comparison (3-5 sentences). Highlight what the learner got right, note any key points they may have missed from the sample answer, and offer one suggestion for deepening their understanding. Be concise and supportive.',
+        ].join('\n')
+      : [
+          'You are a learning coach. A learner was asked the following reflection question:\n',
+          `**Question:** ${question}\n`,
+          `**Learner's response:** ${userResponse}\n`,
+          'Please provide a brief, encouraging response (3-5 sentences). Acknowledge what the learner covered well, highlight any angles of the question worth exploring further, and offer one suggestion for deepening their thinking. Be concise and supportive.',
+        ].join('\n');
 
     const result = await sendExercisePrompt(prompt, courseSlug);
     setAiFeedback(result);
@@ -70,103 +77,106 @@ export default function ReflectionPrompt({ question, answer, children }: Reflect
           />
 
           {/* Submit / Reveal buttons */}
-          {(answer || children) && (
-            <div className="mt-3" data-print-hide>
-              {available ? (
-                <>
-                  <button
-                    onClick={handleSubmit}
-                    disabled={streaming || !userResponse.trim()}
-                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary rounded-button hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {streaming ? (
-                      <>
-                        <span className="inline-flex gap-0.5">
-                          <span className="w-1 h-1 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                          <span className="w-1 h-1 bg-white rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                          <span className="w-1 h-1 bg-white rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                        </span>
-                        Reviewing...
-                      </>
-                    ) : (
-                      <>
-                        <Send size={14} />
-                        Submit for Review
-                      </>
-                    )}
-                  </button>
-
-                  {error && (
-                    <p className="mt-2 text-xs text-error flex items-center gap-1">
-                      <AlertCircle size={12} />
-                      {error}
-                    </p>
+          <div className="mt-3" data-print-hide>
+            {available ? (
+              <>
+                <button
+                  onClick={handleSubmit}
+                  disabled={streaming || !userResponse.trim()}
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary rounded-button hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {streaming ? (
+                    <>
+                      <span className="inline-flex gap-0.5">
+                        <span className="w-1 h-1 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                        <span className="w-1 h-1 bg-white rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                        <span className="w-1 h-1 bg-white rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                      </span>
+                      Reviewing...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={14} />
+                      Submit for Review
+                    </>
                   )}
+                </button>
 
-                  {/* AI Feedback */}
-                  <AnimatePresence>
-                    {aiFeedback && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4, ease: 'easeInOut' }}
-                        className="overflow-hidden"
-                      >
-                        <div className="mt-4 rounded-card border border-border bg-surface overflow-hidden">
-                          <div className="border-b border-border bg-success/5 px-4 py-2">
-                            <span className="text-xs font-semibold uppercase tracking-wider text-success">
-                              AI Feedback
-                            </span>
-                          </div>
-                          <div className="flex gap-3 p-4">
-                            <div className="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center flex-shrink-0">
-                              <Bot size={16} className="text-success" />
-                            </div>
-                            <div className="flex-1 prose prose-sm max-w-none prose-p:my-1 prose-headings:my-2 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 text-sm text-text-secondary leading-relaxed">
-                              <Markdown>{aiFeedback}</Markdown>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </>
-              ) : (
-                /* Fallback: reveal answer when AI is not available */
-                <>
-                  <button
-                    onClick={() => setShowFallbackAnswer(!showFallbackAnswer)}
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary bg-primary-light rounded-button hover:bg-primary/15 transition-colors"
-                  >
-                    {showFallbackAnswer ? 'Hide Answer' : 'Reveal Answer'}
-                    <motion.span
-                      animate={{ rotate: showFallbackAnswer ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
+                {error && (
+                  <p className="mt-2 text-xs text-error flex items-center gap-1">
+                    <AlertCircle size={12} />
+                    {error}
+                  </p>
+                )}
+
+                {/* AI Feedback */}
+                <AnimatePresence>
+                  {aiFeedback && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: 'easeInOut' }}
+                      className="overflow-hidden"
                     >
-                      <ChevronDown size={16} />
-                    </motion.span>
-                  </button>
-
-                  <AnimatePresence>
-                    {showFallbackAnswer && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4, ease: 'easeInOut' }}
-                        className="overflow-hidden"
-                      >
-                        <div className="mt-4 pt-4 border-t border-border text-sm text-text-secondary leading-relaxed">
-                          {answer || children}
+                      <div className="mt-4 rounded-card border border-border bg-surface overflow-hidden">
+                        <div className="border-b border-border bg-success/5 px-4 py-2">
+                          <span className="text-xs font-semibold uppercase tracking-wider text-success">
+                            AI Feedback
+                          </span>
                         </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </>
-              )}
-            </div>
-          )}
+                        <div className="flex gap-3 p-4">
+                          <div className="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center flex-shrink-0">
+                            <Bot size={16} className="text-success" />
+                          </div>
+                          <div className="flex-1 prose prose-sm max-w-none prose-p:my-1 prose-headings:my-2 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 text-sm text-text-secondary leading-relaxed">
+                            <Markdown>{aiFeedback}</Markdown>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </>
+            ) : (answer || children) ? (
+              /* Fallback: reveal answer when AI is not available and an answer exists */
+              <>
+                <button
+                  onClick={() => setShowFallbackAnswer(!showFallbackAnswer)}
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary bg-primary-light rounded-button hover:bg-primary/15 transition-colors"
+                >
+                  {showFallbackAnswer ? 'Hide Answer' : 'Reveal Answer'}
+                  <motion.span
+                    animate={{ rotate: showFallbackAnswer ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown size={16} />
+                  </motion.span>
+                </button>
+
+                <AnimatePresence>
+                  {showFallbackAnswer && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mt-4 pt-4 border-t border-border text-sm text-text-secondary leading-relaxed">
+                        {answer || children}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </>
+            ) : (
+              /* No AI and no sample answer: nudge the learner to use the space above */
+              <p className="text-xs text-text-secondary/60 italic">
+                Write your thoughts above to consolidate your understanding before moving on.
+              </p>
+            )}
+          </div>
 
           {/* Print-only: always show answer */}
           <div className="hidden print:block mt-4 pt-4 border-t border-border text-sm text-text-secondary leading-relaxed">

@@ -23,6 +23,8 @@ function computeLockedItems(
   const isLinear = course.navigation_mode === 'linear';
   const requireKC = course.require_knowledge_checks ?? false;
 
+  // Locking disabled — always return empty sets
+  if (true) return { lockedLessons, lockedKCs };
   if (!isLinear && !requireKC) return { lockedLessons, lockedKCs };
 
   // Flat list of all lessons in order

@@ -45,11 +45,36 @@ The AI Skill-Match Dispatch solution is ready for full deployment across Metro C
   ]}
 />
 
-## Part 2: Influence Network Engagement
+## Part 2: Activate the Champions
 
-<AIExercise
-  scenario="Metro Cable has 18 dispatch coordinators across its service zones. Three were enthusiastic pilot adopters and have informally mentored peers (Champions). Two veteran coordinators publicly questioned the AI's ability to handle complex jobs at a team meeting (Skeptics). One operations manager has relationships across all 18 zones and is trusted for her fairness (Connector)."
-  instructions="Write an influence network engagement plan. For each group — Champions, Skeptics, and the Connector — specify the role they play in the rollout, three concrete actions you will take with them, and the message you want them to carry. Keep each section to 4–6 sentences."
+<MultipleChoice
+  question="Three pilot Champions are available to support the Zone 5 rollout. Which action makes the best use of their peer influence?"
+  options={[
+    {
+      id: "a",
+      label: "Have Champions co-present the official Zone 5 launch kickoff alongside the project team.",
+      correct: false,
+      explanation: "Positioning Champions as official co-presenters makes them look like management proxies — which undermines the peer credibility that makes them valuable. Their influence works because Zone 5 coordinators see them as colleagues sharing real experience, not as part of the change management apparatus."
+    },
+    {
+      id: "b",
+      label: "Ask each Champion to host an informal 30-minute conversation with 4–5 Zone 5 peers before launch, sharing specific examples of how the AI improved their own dispatch outcomes.",
+      correct: true,
+      explanation: "Correct. Small-group peer conversations are the highest-leverage use of Champions. Specific examples from real dispatch decisions carry far more credibility than any formal presentation. Zone 5 coordinators trust a colleague's lived experience — 'the AI caught a tier mismatch I would have missed on a fiber repair' — over anything the project team can say."
+    },
+    {
+      id: "c",
+      label: "Have Champions send a company-wide email endorsing the rollout before Zone 5 goes live.",
+      correct: false,
+      explanation: "Mass email converts a trusted peer voice into just another broadcast channel — which is exactly what formal communications already are. Champions' value is in personal, contextual conversations, not in becoming another vehicle for official messaging."
+    },
+    {
+      id: "d",
+      label: "Ask Champions to monitor Zone 5 acceptance rates and report coordinators who are not using the AI recommendations to the project team.",
+      correct: false,
+      explanation: "Turning Champions into compliance monitors destroys their peer credibility immediately. If Zone 5 coordinators learn that Champions are reporting their behavior to the project team, the Champions become enforcement agents — the opposite of what makes them effective at driving adoption."
+    }
+  ]}
 />
 
 ## Part 3: Responding to Resistance

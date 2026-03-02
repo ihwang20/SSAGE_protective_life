@@ -79,9 +79,34 @@ Metro Cable's executive committee has flagged a dispatch accuracy problem. The e
 
 ## Part 3: Mapping Metro Cable to the Playbook
 
-<AIExercise
-  scenario="Metro Cable's engagement has been scoped. The problem statement identifies a 23-point dispatch accuracy gap (62% vs. 85% benchmark) with a 12-month window. The team is about to begin Phase 1."
-  instructions="Using the playbook structure, identify which phase the team is entering, what the primary output of that phase should be, and what the AI's role is in producing it. Write 3–4 sentences that you could use to brief a new team member joining the engagement today."
+<MultipleChoice
+  question="Metro Cable's engagement has been scoped. The problem statement identifies a 23-point dispatch accuracy gap (62% vs. 85% benchmark) with a 12-month window. Which statement best describes Phase 1, its primary output, and AI's role?"
+  options={[
+    {
+      id: "a",
+      label: "Phase 1 is solution design. The primary output is an AI dispatch prototype. AI generates the code for the system.",
+      correct: false,
+      explanation: "Solution design comes in Phase 4 (Tool Development), after the diagnostic, problem statement, and prioritization work is complete. Beginning with a prototype skips the root cause analysis that determines what to build."
+    },
+    {
+      id: "b",
+      label: "Phase 1 is diagnostic. The primary output is a validated Problem Statement and root cause findings. AI analyzes dispatch data and surfaces patterns the team tests against hypotheses.",
+      correct: true,
+      explanation: "Correct. Phase 1 (AI-Enabled Problem Solving) produces the validated Problem Statement and root cause findings that every subsequent phase depends on. AI accelerates the diagnostic by processing 14 months of dispatch records at scale — but the practitioner directs the hypotheses and validates the findings."
+    },
+    {
+      id: "c",
+      label: "Phase 1 is prioritization. The primary output is a WSJF-scored opportunity roadmap. AI calculates value and complexity scores for each opportunity.",
+      correct: false,
+      explanation: "Prioritization (Phase 3) cannot happen until the diagnostic findings are in hand. Without validated root causes, there are no opportunities to score."
+    },
+    {
+      id: "d",
+      label: "Phase 1 is change management. The primary output is a stakeholder communications plan. AI drafts messaging for each stakeholder group.",
+      correct: false,
+      explanation: "Change management (Phase 6) comes last — after the solution is designed and ready to deploy. A communications plan at the start of the engagement has nothing to communicate yet."
+    }
+  ]}
 />
 
 ## Part 4: Framing the Problem

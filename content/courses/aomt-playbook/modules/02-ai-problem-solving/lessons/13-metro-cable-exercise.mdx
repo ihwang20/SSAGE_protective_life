@@ -46,11 +46,36 @@ Metro Cable's executive committee has approved the engagement. You have the Prob
   ]}
 />
 
-## Part 2: Write a Curiosity-Enabled Analysis Prompt
+## Part 2: Identify the Strongest Analysis Prompt
 
-<AIExercise
-  scenario="You have 14 months of Metro Cable dispatch records (350,000+ rows) including technician IDs, job types, resolution outcomes, travel times, zone assignments, and technician certification levels. Initial exploration shows that Zones 4, 7, and 12 have first-visit resolution rates 18–22% below company average."
-  instructions="Write a curiosity-enabled analysis prompt using the Context + Task + Output (C+T+O) framework. Your prompt should investigate the relationship between technician certification level and first-visit resolution rate, controlling for job type complexity. Be specific about what data to analyze, what method to use, and what output format you need."
+<MultipleChoice
+  question="You need to investigate the relationship between technician certification level and first-visit resolution rate in Metro Cable's dispatch data. Which prompt best demonstrates the C+T+O (Context + Task + Output) framework?"
+  options={[
+    {
+      id: "a",
+      label: "\"Analyze the dispatch data and tell me what's wrong with technician assignments.\"",
+      correct: false,
+      explanation: "This prompt is missing all three C+T+O elements. There is no Context (what data is loaded, what has been found so far), no specific Task (what analysis to run, which variables), and no Output specification. The result will be generic and hard to act on."
+    },
+    {
+      id: "b",
+      label: "\"We have 14 months of Metro Cable dispatch records with technician IDs, certification levels, job types, and FCR outcomes. Zones 4, 7, and 12 are 18–22% below average FCR. Analyze first-visit resolution by certification tier for repair-complex jobs only, controlling for zone. Present results as a table showing mean FCR per tier with sample sizes; flag any tier where n < 30 as statistically unreliable.\"",
+      correct: true,
+      explanation: "Correct. This prompt includes all three C+T+O elements: Context (14 months of data, underperforming zones already identified), Task (analyze FCR by tier for repair-complex jobs, control for zone), and Output (table with sample sizes and reliability flags). Specific prompts produce specific, actionable results."
+    },
+    {
+      id: "c",
+      label: "\"Run a correlation analysis between certification level and FCR. Show me the results in a chart.\"",
+      correct: false,
+      explanation: "This has a partial Task and vague Output but no Context. Without knowing which dataset is loaded, what prior findings exist, or what job types to include, the AI may run the analysis on the wrong scope or produce a result the practitioner cannot interpret."
+    },
+    {
+      id: "d",
+      label: "\"We have dispatch data showing performance problems in certain zones. Can you find which factors are contributing to the FCR gap?\"",
+      correct: false,
+      explanation: "This has vague Context and an open-ended exploratory Task with no Output format. Broad exploration is useful early in an analysis, but at this stage the team has a specific hypothesis to test — certification level vs. FCR in complex jobs — and needs a targeted prompt, not an open search."
+    }
+  ]}
 />
 
 ## Part 3: Analysis Validation
@@ -79,7 +104,32 @@ Metro Cable's executive committee has approved the engagement. You have the Prob
 
 ## Part 4: Opportunity Synthesis
 
-<AIExercise
-  scenario="Your diagnostic is complete. You have validated three root causes: (1) technician-to-job skill mismatches in Zones 4, 7, and 12; (2) systematic underestimation of complex job durations by 35–45 minutes; and (3) no real-time re-routing when technicians fall behind schedule."
-  instructions="Write a concise opportunity synthesis statement — no more than 200 words — that frames these three findings as actionable opportunities with estimated impact on the 62% dispatch accuracy gap. Quantify the potential improvement for each opportunity where possible, and end with a projected combined impact."
+<MultipleChoice
+  question="Your diagnostic has validated three root causes for Metro Cable's FCR gap. Which opportunity synthesis statement best frames these as actionable opportunities with projected impact?"
+  options={[
+    {
+      id: "a",
+      label: "\"Metro Cable has dispatch problems that need fixing. Technician assignments are wrong, duration estimates are off, and there is no re-routing capability.\"",
+      correct: false,
+      explanation: "This describes symptoms, not opportunities, and includes no quantification of impact. An opportunity synthesis must frame each finding as an addressable gap with projected improvement, not a list of problems."
+    },
+    {
+      id: "b",
+      label: "\"Three opportunities can recover 15–18 FCR points: (1) correcting tier mismatches in Zones 4, 7, 12 (67% of complex jobs misassigned, FCR 71% vs. 91% matched) could recover 6–8 points; (2) recalibrating job duration estimates (currently 35–45 min short) could recover 5–7 points by reducing scheduling compression; (3) adding real-time re-routing could recover 4–5 points. Combined, this closes 65–80% of the 23-point gap.\"",
+      correct: true,
+      explanation: "Correct. This synthesis frames each root cause as a quantified opportunity, estimates per-opportunity impact using the validated data, and projects a combined impact against the known gap. This is exactly what an executive committee needs to authorize a prioritization phase."
+    },
+    {
+      id: "c",
+      label: "\"The data suggests we should build an AI dispatch system immediately. This will fix assignment logic and improve scheduling accuracy.\"",
+      correct: false,
+      explanation: "This prescribes a solution before synthesis is complete. Opportunity synthesis frames what could be improved and at what magnitude — solution selection happens in the prioritization and tool development phases."
+    },
+    {
+      id: "d",
+      label: "\"The diagnostic found problems in Zones 4, 7, and 12. Duration estimates are also an issue. Re-routing requires further investigation before conclusions can be drawn.\"",
+      correct: false,
+      explanation: "This understates two validated findings and hedges on the third despite sufficient evidence. An opportunity synthesis should communicate confidence in validated root causes — not reopen questions that the diagnostic has already answered."
+    }
+  ]}
 />
