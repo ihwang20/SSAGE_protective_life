@@ -38,44 +38,8 @@ export default function LessonPage() {
   const minTimeRemaining = Math.max(0, minLessonTime - elapsed);
 
   // Check if this lesson is locked (sequential mode or KC gate)
+  // Locking disabled for now
   const isCurrentLessonLocked = useMemo(() => {
-    if (!navTree || !course || !moduleSlug || !lessonSlug) return false;
-    const isLinear = course.navigation_mode === 'linear';
-    const requireKC = course.require_knowledge_checks ?? false;
-    // Locking disabled
-    return false;
-    if (!isLinear && !requireKC) return false;
-
-    const allLessons: Array<{ modSlug: string; slug: string; status: string }> = [];
-    for (const mod of navTree.modules) {
-      for (const lesson of mod.lessons) {
-        allLessons.push({ modSlug: mod.slug, slug: lesson.slug, status: lesson.status });
-      }
-    }
-    const firstNonCompleted = isLinear ? allLessons.findIndex((l) => l.status !== 'completed') : -1;
-    let kcBlockedFromModIdx = Infinity;
-    if (requireKC) {
-      for (let i = 0; i < navTree.modules.length; i++) {
-        const mod = navTree.modules[i];
-        if (mod.has_knowledge_check && !mod.knowledge_check_completed) {
-          kcBlockedFromModIdx = i + 1;
-          break;
-        }
-      }
-    }
-
-    let flatIdx = 0;
-    for (let modIdx = 0; modIdx < navTree.modules.length; modIdx++) {
-      const mod = navTree.modules[modIdx];
-      for (const lesson of mod.lessons) {
-        if (mod.slug === moduleSlug && lesson.slug === lessonSlug) {
-          const linearLocked = isLinear && firstNonCompleted !== -1 && flatIdx > firstNonCompleted;
-          const kcLocked = requireKC && modIdx >= kcBlockedFromModIdx;
-          return linearLocked || kcLocked;
-        }
-        flatIdx++;
-      }
-    }
     return false;
   }, [navTree, course, moduleSlug, lessonSlug]);
 
