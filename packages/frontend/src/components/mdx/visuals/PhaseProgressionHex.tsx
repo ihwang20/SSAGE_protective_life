@@ -36,7 +36,7 @@ export default function PhaseProgressionHex() {
           AI-Enabled Problem Solving — Phase Progression
         </h3>
         <p style={{ fontSize: '0.85rem', color: '#6B7280', marginBottom: '1rem' }}>
-          Effective AI-enabled problem solving requires progressively broader engagement — from targeted data diagnosis to organization-wide change management.
+          Unlike traditional problem-solving approaches, AI-Enabled Problem Solving allows teams to engage in interactive problem solving where an initial diagnosis leads to prototype solutions that can be implemented for immediate improvements. Learnings from the prototype are cycled back into the diagnosis process to reveal enhancements and added features which will produce additional improvements. The key concept is to repeatedly layer small improvements in rapid succession to create an environment of continuous improvement. As improvements are implemented, Teams must be conscious of associated Change Management and Sustainment activities which are crucial to long-term success.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', width: 'fit-content', margin: '0 auto' }}>

@@ -15,6 +15,8 @@ import DownloadResource from './DownloadResource';
 import AIExercise from './AIExercise';
 import PromptScorer from './PromptScorer';
 import MultipleChoice from './MultipleChoice';
+import DetailsReveal from './DetailsReveal';
+import CaseStudyBanner from './CaseStudyBanner';
 import {
   CourseTOC,
   PhaseProgressionHex,
@@ -24,6 +26,7 @@ import {
   ProblemStatementElements,
   ProblemStatementEvaluation,
   IssuesTreeInteractive,
+  IssuesTreeDiagram,
   AIConversationIssuesTree,
   FormalDataRequest,
   DataRequestRisks,
@@ -125,6 +128,8 @@ export const mdxComponents: Record<string, ComponentType<any>> = {
   AIExercise,
   PromptScorer,
   MultipleChoice,
+  DetailsReveal,
+  CaseStudyBanner,
 
   // Visual graphics
   CourseTOC,
@@ -135,6 +140,7 @@ export const mdxComponents: Record<string, ComponentType<any>> = {
   ProblemStatementElements,
   ProblemStatementEvaluation,
   IssuesTreeInteractive,
+  IssuesTreeDiagram,
   AIConversationIssuesTree,
   FormalDataRequest,
   DataRequestRisks,

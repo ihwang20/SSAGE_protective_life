@@ -6,6 +6,7 @@ export { default as CircularActivityFlow } from './CircularActivityFlow';
 export { default as ProblemStatementElements } from './ProblemStatementElements';
 export { default as ProblemStatementEvaluation } from './ProblemStatementEvaluation';
 export { default as IssuesTreeInteractive } from './IssuesTreeInteractive';
+export { default as IssuesTreeDiagram } from './IssuesTreeDiagram';
 export { default as AIConversationIssuesTree } from './AIConversationIssuesTree';
 export { default as FormalDataRequest } from './FormalDataRequest';
 export { default as DataRequestRisks } from './DataRequestRisks';
