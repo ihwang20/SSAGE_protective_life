@@ -140,18 +140,30 @@ export default function AgileLifecycle() {
         </div>
 
         {/* Feedback loop */}
-        <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.55rem 1rem', background: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: 8 }}>
-          <div style={{ width: 26, height: 26, borderRadius: '50%', background: '#1E1B4B', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <span style={{ color: 'white', fontSize: '0.85rem', lineHeight: 1 }}>↺</span>
+        <div style={{ marginTop: '0.5rem', padding: '0.6rem 1rem', background: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <div style={{ width: 26, height: 26, borderRadius: '50%', background: '#1E1B4B', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <span style={{ color: 'white', fontSize: '0.85rem', lineHeight: 1 }}>↺</span>
+            </div>
+            <div style={{ fontSize: '0.78rem', color: '#374151' }}>
+              <span style={{ fontWeight: 700 }}>Feedback Loop</span>
+              <span style={{ color: '#6B7280' }}> — to adjust plans based on business dynamics</span>
+            </div>
           </div>
-          <div style={{ flex: 1, fontSize: '0.78rem', color: '#374151' }}>
-            <span style={{ fontWeight: 700 }}>Feedback Loop</span>
-            <span style={{ color: '#6B7280' }}> — to adjust plans based on business dynamics</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', fontSize: '0.68rem', whiteSpace: 'nowrap', color: '#9CA3AF', gap: '0.2rem' }}>
-            <span style={{ background: '#F0FDFA', color: '#0D9488', padding: '0.15rem 0.45rem', borderRadius: 4, fontWeight: 600 }}>Stage 3</span>
-            <span>→</span>
-            <span style={{ background: '#EEF2FF', color: '#4F46E5', padding: '0.15rem 0.45rem', borderRadius: 4, fontWeight: 600 }}>Stage 1</span>
+          {/* Arrow from Stage 3 back to Stage 1 */}
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '0.45rem', paddingLeft: '2.3rem' }}>
+            <span style={{ background: '#EEF2FF', color: '#4F46E5', padding: '0.15rem 0.5rem', borderRadius: 4, fontWeight: 700, fontSize: '0.7rem', flexShrink: 0 }}>
+              Stage 1
+            </span>
+            <div style={{ flex: 1, position: 'relative', height: 20, display: 'flex', alignItems: 'center', margin: '0 0.15rem' }}>
+              {/* Gradient line */}
+              <div style={{ width: '100%', height: 2, background: 'linear-gradient(to left, #0D9488, #4F46E5)' }} />
+              {/* Arrowhead pointing left toward Stage 1 */}
+              <div style={{ position: 'absolute', left: -1, width: 0, height: 0, borderTop: '5px solid transparent', borderBottom: '5px solid transparent', borderRight: '7px solid #4F46E5' }} />
+            </div>
+            <span style={{ background: '#F0FDFA', color: '#0D9488', padding: '0.15rem 0.5rem', borderRadius: 4, fontWeight: 700, fontSize: '0.7rem', flexShrink: 0 }}>
+              Stage 3
+            </span>
           </div>
         </div>
       </div>
