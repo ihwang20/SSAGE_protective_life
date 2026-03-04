@@ -43,6 +43,7 @@ import {
   PrototypeExample,
   AgileStagesRoles,
   AgileContinuousCycle,
+  AgileLifecycle,
   ProblemSolvingMandate,
   GeographicHeatMap,
 } from './visuals';
@@ -159,6 +160,7 @@ export const mdxComponents: Record<string, ComponentType<any>> = {
   PrototypeExample,
   AgileStagesRoles,
   AgileContinuousCycle,
+  AgileLifecycle,
   ProblemSolvingMandate,
   GeographicHeatMap,
 
