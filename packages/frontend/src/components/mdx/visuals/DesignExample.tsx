@@ -41,8 +41,8 @@ export default function DesignExample() {
               style={{ width: '100%', background: expanded[i] ? '#F5F7FF' : 'white', border: 'none', padding: '0.65rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', textAlign: 'left' }}
             >
               <span style={{ flex: 1, fontSize: '0.85rem', color: '#374151', fontWeight: 600, lineHeight: 1.4 }}>{step.caption}</span>
-              <span style={{ fontSize: '0.72rem', color: '#6B7280', flexShrink: 0, background: '#F3F4F6', padding: '0.15rem 0.5rem', borderRadius: 4 }}>
-                {expanded[i] ? '▲ Hide' : '▼ Screenshots'}
+              <span style={{ fontSize: '0.8rem', color: '#9CA3AF', flexShrink: 0 }}>
+                {expanded[i] ? '▲' : '▼'}
               </span>
             </button>
             {expanded[i] && (
