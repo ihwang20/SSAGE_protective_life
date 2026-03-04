@@ -12,42 +12,46 @@ export default function WSJFScoringFactors() {
   const factors = [
     {
       label: 'Business Value', abbr: 'BV', color: '#1E1B4B', icon: 'BarChart3',
+      sub: 'Customer/Business Benefit',
       tiers: [
-        { score: '9-10', desc: 'Transformational impact' },
-        { score: '7-8', desc: 'Significant KPI impact' },
-        { score: '5-6', desc: 'Moderate efficiency gain' },
-        { score: '3-4', desc: 'Small improvement' },
-        { score: '1-2', desc: 'Minimal impact' },
+        { score: '9-10', desc: 'Transformational impact on customer experience, revenue, or competitive position' },
+        { score: '7-8', desc: 'Significant measurable impact on KPIs, cost reduction 25%+, or customer satisfaction' },
+        { score: '5-6', desc: 'Moderate impact, measurable efficiency gains 10–25%, improved analytics' },
+        { score: '3-4', desc: 'Small incremental improvement, limited scope impact' },
+        { score: '1-2', desc: 'Minimal impact, nice-to-have capability' },
       ]
     },
     {
       label: 'Time Criticality', abbr: 'TC', color: '#0891B2', icon: 'Clock',
+      sub: 'Urgency',
       tiers: [
-        { score: '9-10', desc: 'Regulatory/competitive deadline' },
-        { score: '7-8', desc: 'Significant opp cost if delayed' },
-        { score: '5-6', desc: 'Moderate urgency' },
-        { score: '3-4', desc: 'Low urgency' },
-        { score: '1-2', desc: 'No time pressure' },
+        { score: '9-10', desc: 'Regulatory deadline, critical competitive disadvantage, market window closing' },
+        { score: '7-8', desc: 'Significant opportunity cost if delayed, business strategy dependency' },
+        { score: '5-6', desc: 'Moderate urgency, aligned with annual planning cycle' },
+        { score: '3-4', desc: 'Low urgency, flexible timeline' },
+        { score: '1-2', desc: 'No time pressure, can be delayed indefinitely' },
       ]
     },
     {
       label: 'Risk Reduction & OE', abbr: 'RR', color: '#16A34A', icon: 'Shield',
+      sub: 'Strategic Value',
       tiers: [
-        { score: '9-10', desc: 'Eliminates major risk' },
-        { score: '7-8', desc: 'Reduces operational risk' },
-        { score: '5-6', desc: 'Moderate mitigation' },
-        { score: '3-4', desc: 'Minor risk reduction' },
-        { score: '1-2', desc: 'Minimal risk' },
+        { score: '9-10', desc: 'Eliminates major regulatory/compliance risk OR enables multiple future use cases' },
+        { score: '7-8', desc: 'Reduces operational risk OR unlocks new business models/products' },
+        { score: '5-6', desc: 'Moderate risk mitigation OR enables 2–3 future capabilities' },
+        { score: '3-4', desc: 'Minor risk reduction OR enables 1 future capability' },
+        { score: '1-2', desc: 'Minimal risk impact, standalone capability' },
       ]
     },
     {
       label: 'Job Size', abbr: 'JS', color: '#2563EB', icon: 'Settings',
+      sub: 'Implementation Effort',
       tiers: [
-        { score: '9-10', desc: '>12mo major changes' },
-        { score: '7-8', desc: '6-12mo significant tech' },
-        { score: '5-6', desc: '3-6mo moderate' },
-        { score: '3-4', desc: '1-3mo low complexity' },
-        { score: '1-2', desc: '<1mo simple' },
+        { score: '9-10', desc: '>12 months, major platform changes, high complexity, large team' },
+        { score: '7-8', desc: '6–12 months, significant technical challenges, multiple dependencies' },
+        { score: '5-6', desc: '3–6 months, moderate complexity, some dependencies' },
+        { score: '3-4', desc: '1–3 months, low complexity, minimal dependencies' },
+        { score: '1-2', desc: '<1 month, simple implementation, no dependencies' },
       ]
     },
   ];
@@ -79,6 +83,7 @@ export default function WSJFScoringFactors() {
                   <span style={{background:f.color,color:'white',fontSize:'0.6rem',fontWeight:800,padding:'0.1rem 0.3rem',borderRadius:3,letterSpacing:'0.03em'}}>{(f as any).abbr}</span>
                   <span style={{fontWeight:700,fontSize:'0.8rem',color:f.color,textAlign:'center'}}>{f.label}</span>
                 </div>
+                <div style={{fontSize:'0.68rem',color:'#9CA3AF',textAlign:'center',marginBottom:'0.1rem'}}>{(f as any).sub}</div>
                 <div style={{width:'100%'}}>
                   {f.tiers.map((t, ti) => (
                     <div key={ti} style={{display:'flex',gap:'0.3rem',alignItems:'flex-start',marginBottom:'0.2rem',fontSize:'0.7rem'}}>
