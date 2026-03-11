@@ -5,7 +5,6 @@ import Sidebar from './Sidebar';
 import { useCourse } from '../../context/CourseContext';
 import { useAI } from '../../context/AIContext';
 import AIChatPanel from '../ai/AIChatPanel';
-import { NoiseOverlay } from '../ui/Backgrounds';
 import Footer from './Footer';
 
 export default function AppShell() {
@@ -13,6 +12,14 @@ export default function AppShell() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const { loading, error } = useCourse();
   const { available: aiAvailable } = useAI();
+
+  const handleSidebarToggle = () => {
+    if (window.innerWidth >= 1024) {
+      setSidebarCollapsed((prev) => !prev);
+    } else {
+      setSidebarOpen((prev) => !prev);
+    }
+  };
 
   if (error) {
     return (
@@ -26,9 +33,8 @@ export default function AppShell() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background relative">
-      <NoiseOverlay />
-      <TopBar onMobileMenuToggle={() => setSidebarOpen((prev) => !prev)} />
+    <div className="min-h-screen flex flex-col bg-background">
+      <TopBar onSidebarToggle={handleSidebarToggle} />
       <div className="flex flex-1">
         <Sidebar
           open={sidebarOpen}

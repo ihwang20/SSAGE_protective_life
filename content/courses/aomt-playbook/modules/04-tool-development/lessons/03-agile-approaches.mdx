@@ -5,47 +5,44 @@ estimated_duration_minutes: 7
 order: 3
 ---
 
-# Projects vs. Agile Approaches
 
-The choice between traditional project management and Agile delivery significantly impacts the success of AI solution implementation. Understanding when to use each approach — and why this methodology generally favors Agile — is essential for practitioners.
+AI solutions are inherently experimental. Requirements evolve as the solution is built and tested. Stakeholder understanding of what's possible changes with each working demo. Agile delivery is not just a preference — it is the only approach that works well for AI development.
+
+<Callout type="concept" title="Why Agile for AI">
+Traditional waterfall planning requires stable, knowable requirements. AI solution requirements are neither stable nor fully knowable at the start. The model's actual performance will differ from the proof of concept. User interaction patterns will differ from what was assumed. Agile delivery's short cycles and continuous feedback loops are specifically designed for this uncertainty.
+</Callout>
+
+## The Pod as the Unit of Delivery
+
+All delivery work is organized into **Pods** — small, empowered, cross-functional teams that own a problem space end-to-end. A Pod typically includes a Product Manager, an engineer or data scientist, a designer or analyst, and a domain subject matter expert. Pods are stable over time; work comes to the Pod, not the other way around.
 
 <BeforeAfter
-  before="Requirements are gathered upfront and frozen. A detailed project plan spans 6-12 months. Development proceeds through sequential phases (design, build, test, deploy). Changes require formal change requests and re-planning. Users see the solution only at final delivery."
-  after="Requirements are captured as a prioritized backlog and refined continuously. Work is delivered in 2-week sprints. Each sprint produces a working increment that users can test. Feedback directly shapes the next sprint. The solution evolves through rapid iteration toward product-market fit."
-  beforeLabel="Traditional Project Approach"
-  afterLabel="Agile Approach"
+  beforeLabel="Project Team Model (avoid this)"
+  afterLabel="Pod Model — Empowered (do this instead)"
+  before="Assembled for a project, disbanded on delivery. Functional silos hand off between stages. Success = on-time, on-budget delivery. Architecture Review Board approves before build. PI planning pre-defines 10 weeks of work."
+  after="Stable team owns an outcome continuously. All skills inside the Pod — no hand-offs. Success = measurable business outcome. Pod discovers the right solution through iteration. Pod plans its own sprint; escalates only genuine blockers."
 />
 
-## When to Use Each Approach
+## Core Agile Practices
 
-<Callout type="tip" title="When Traditional Project Management Fits">
-Use a traditional project approach when requirements are well-understood and unlikely to change, when the solution is based on proven technology with predictable outcomes, when regulatory or contractual obligations require fixed scope and timeline, or when the work is primarily infrastructure deployment rather than software development.
+<AgileLifecycle />
+
+<ProcessFlow steps={[
+  { title: "2-Week Sprints", description: "Short, time-boxed delivery cycles that produce a working, testable increment at the end of each sprint. Every sprint ends with a stakeholder demo — not just an internal review — so feedback directly shapes the next sprint." },
+  { title: "Continuous Discovery", description: "The Product Manager runs ongoing discovery in parallel with delivery — interviewing users, testing assumptions, and updating the opportunity backlog. Discovery is not a separate upfront phase; it runs continuously alongside delivery throughout the Pod's life." },
+  { title: "Backlog Refinement", description: "Regular review and prioritization of the Pod's backlog. User stories are refined, estimated, and sequenced before each sprint begins. WSJF scoring informs sequencing decisions — highest cost-of-delay items go first." },
+  { title: "Sprint Retrospectives", description: "After each sprint, the Pod reflects on what worked and what didn't. Improvements are incorporated into the next sprint's process." },
+  { title: "Continuous Integration", description: "Code is merged, tested, and deployed frequently — ideally daily. For AI solutions, this means model retraining, evaluation, and deployment pipelines should be automated and triggered on merge." }
+]} />
+
+## When to Add Coordination (Not a Framework)
+
+<Callout type="tip" title="Right-Size Your Coordination">
+When a single Pod can't deliver the outcome alone — because the scope spans multiple systems, teams, or domains — add the minimum coordination mechanism needed: a shared backlog review, a weekly cross-Pod sync, or a lightweight dependency board. Add coordination incrementally as genuine blockers emerge. **Do not pre-install a multi-layer framework before you know you need it.**
 </Callout>
 
-<Callout type="tip" title="When Agile Fits">
-Use Agile when the solution involves AI or machine learning (where model performance is uncertain until tested with real data), when user adoption depends on iterative refinement of the interface and workflow, when the problem space is complex and requirements will evolve as understanding deepens, or when speed to initial value is more important than completeness at launch.
-</Callout>
-
-## Recommendation for AI Solutions
-
-<Callout type="concept" title="Default to Agile for AI">
-This methodology strongly recommends Agile delivery for AI-powered solutions. AI solutions are inherently experimental — model accuracy, user acceptance, and operational impact cannot be fully predicted from requirements documents alone. Agile delivery allows practitioners to test hypotheses about solution effectiveness with the same rigor they applied to testing diagnostic hypotheses.
-</Callout>
-
-## Key Agile Concepts for Practitioners
-
-| Concept | Definition | Application |
-|---------|-----------|------------------|
-| Sprint | A fixed time period (typically 2 weeks) for delivering a working increment | Each sprint should deliver a testable improvement to the AI solution |
-| Backlog | A prioritized list of work items (user stories, bugs, technical tasks) | Maintained by the Product Owner / Product Manager, informed by WSJF prioritization |
-| Sprint Review | A demonstration of completed work to stakeholders | Critical for maintaining stakeholder engagement and gathering feedback |
-| Retrospective | A team reflection on what went well and what to improve | Applies the same continuous improvement mindset to the delivery process |
-
-<DecisionPoint
-  scenario="Your stakeholders want to deploy an AI-powered dispatching solution. The VP of IT insists on a 6-month waterfall plan with fixed requirements. The field operations team wants to start testing a prototype next week. How do you proceed?"
-  options={[
-    { id: "waterfall", label: "Agree to the waterfall plan", outcome: "This keeps the VP of IT happy but risks building a solution based on untested assumptions. After 6 months, you may discover the solution doesn't fit actual workflows — and by then, stakeholder patience may be exhausted." },
-    { id: "agile", label: "Propose a hybrid approach", outcome: "Suggest a 2-sprint proof of concept (4 weeks) that satisfies IT governance requirements while delivering a testable prototype to field operations. This builds evidence that can earn executive buy-in for continued Agile delivery.", recommended: true },
-    { id: "field", label: "Start with field operations immediately", outcome: "Moving fast with the willing team builds momentum, but bypassing IT governance creates organizational risk. The solution may face blockers at deployment if IT wasn't involved from the start." }
-  ]}
-/>
+| Situation | Appropriate Coordination | Avoid |
+|---|---|---|
+| 1 Pod, 1 domain | Basic Scrum (sprint + demo + retro) | PI planning, ARB, Program Office |
+| 2–3 Pods, shared dependencies | Weekly cross-Pod sync, shared dependency board | SAFe Agile Release Train ceremony stack |
+| 4+ Pods, multiple business domains | Lightweight portfolio review (WSJF), async dependency mapping | Scaled framework pre-installation without evidence of need |

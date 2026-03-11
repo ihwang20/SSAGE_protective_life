@@ -5,65 +5,46 @@ estimated_duration_minutes: 7
 order: 4
 ---
 
-# Agile Development Methods
 
-The <GlossaryTerm term="Agile">Agile framework</GlossaryTerm> provides a structured approach to Agile delivery at enterprise scale. For engagements that involve multiple teams, complex integrations, or organization-wide deployment, Agile offers the coordination mechanisms needed to maintain agility without chaos.
+## The SVPG Product Model: Core Distinction
 
-<Callout type="note" title="A Note on Terminology">
-Organizations often adapt Agile terminology to fit their context. Role titles, ceremony names, and artifact labels may differ from what is described here. The underlying principles — iterative delivery, cross-team coordination, and continuous feedback — remain consistent regardless of naming conventions.
+The fundamental shift in SVPG-style product operating models is **from feature factories to outcome owners**. In a feature factory, leadership defines what to build and teams execute. In an empowered product model, leadership defines the problem to solve and the outcome to achieve — and the Pod discovers the best solution through rapid experimentation.
+
+<Callout type="concept" title="The Marty Cagan Critique of SAFe (Why It Matters Here)">
+SAFe recreates waterfall at scale. PI Planning pre-defines 10 weeks of work before Pods have had the chance to discover whether those solutions are actually right. The Program Increment becomes a commitment to a specific solution, not a commitment to an outcome. For AI initiatives — where model behavior is uncertain and user adoption patterns are unknown — pre-committing to features 10 weeks out is precisely the wrong approach. **Commit to outcomes. Discover solutions.**
 </Callout>
 
-## The Product Owner / Product Manager Role
+## The Empowered Product Manager Role
 
-<Callout type="concept" title="Product Owner / Product Manager as Bridge">
-The Product Owner / Product Manager is the critical link between the practitioner team and the development teams. They translate validated opportunities and prioritized requirements into actionable backlog items, make scope trade-off decisions within sprints, and ensure that what gets built aligns with what the diagnostic data recommends. The Product Owner / Product Manager should have deep familiarity with the diagnostic findings.
+WSJF and opportunity documentation from the diagnostic phase inform the Product Manager — but the Product Manager's job is not simply to maintain a backlog. They are responsible for continuous discovery and validated learning:
+
+<ProcessFlow steps={[
+  { title: "Own the Outcome, Not the Feature List", description: "The PM is accountable for a measurable business outcome (e.g., +15 points FCR improvement within 2 quarters), not for delivering a specific set of features. How the outcome is achieved is discovered through iteration — not defined upfront." },
+  { title: "Continuous Discovery", description: "Run at least 2–3 user interviews per week throughout delivery. Test assumptions with prototypes before building. Separate \"what do users need\" discovery from \"how should we build it\" delivery — both run continuously in parallel." },
+  { title: "Prioritize with Evidence", description: "WSJF scoring from the diagnostic phase provides a starting prioritization signal. The PM updates the backlog as new evidence emerges from discovery and production metrics. Priorities are dynamic, not locked in a PI plan." },
+  { title: "Define Success Before Building", description: "Every significant backlog item has a measurable hypothesis: \"We believe that [change] will result in [outcome] as evidenced by [metric].\" This is evaluated at the sprint review — not just \"did we ship?\" but \"did it work?\"" }
+]} />
+
+## Pod Structure for AI Delivery
+
+| Role | Responsibility | Insurance Context |
+|---|---|---|
+| **Product Manager** | Owns outcome; runs discovery; maintains prioritized backlog | Bridges diagnostic findings to delivery; engages underwriting/claims SMEs continuously |
+| **AI/Data Engineer** | Builds and maintains AI models and data pipelines | Manages insurance data quality constraints; ensures model auditability for compliance |
+| **Designer / Analyst** | Translates discovery insights into testable prototypes | Designs for claims adjusters, underwriters, or operations staff — not technical users |
+| **Domain SME** | Embedded expert on insurance processes and constraints | Validates that AI outputs are interpretable and usable within regulatory bounds |
+| **Tech Lead** | Technical decisions within the Pod; API and integration ownership | Navigates legacy system constraints common in mid-size carriers |
+
+## +AI to AI+ Maturity Path
+
+For an insurance organization starting from a **+AI posture** (AI augmenting existing processes), the Pod model enables a disciplined maturity path toward **AI+ posture** (AI as a core operating capability in select domains) without requiring enterprise-wide transformation before any value is realized.
+
+<Callout type="tip" title="Sequence Your Pod Investments">
+**Start +AI:** Launch 1–2 assistive AI Pods in highest-value, highest-readiness domains (e.g., claims triage, underwriting data prep). Demonstrate outcome. Build organizational confidence and data infrastructure.
+
+**Then AI+:** Once a Pod has demonstrated 2–3 successful outcome cycles, the domain has earned investment in more autonomous AI capability. The organizational muscle for continuous discovery and rapid iteration is now proven — expand from there.
 </Callout>
 
-## Key Agile Artifacts
-
-| Artifact | Purpose | Connection |
-|----------|---------|-----------------|
-| Product Backlog | Prioritized list of features and capabilities | Directly derived from WSJF-scored opportunity roadmap |
-| Program Board | Visual dependency map across teams | Critical for AI solutions with data pipeline, model, and UI components |
-| PI Objectives | Measurable goals for each increment | Linked to the success measures defined in the Problem Statement |
-| Iteration Metrics | Sprint-level delivery and quality metrics | Used to track velocity and predict delivery timelines |
-
-<Callout type="tip" title="Feedback Becomes Backlog">
-In Agile, user feedback from sprint demos and production usage is systematically captured and fed back into the product backlog. This creates a virtuous cycle where every deployment generates insights that improve the next iteration. For AI solutions, this feedback loop is essential — model performance in production often reveals optimization opportunities that were not visible during development.
-</Callout>
-
-## Agile Stages and Key Roles
-
-The Agile lifecycle flows through three stages, each with distinct roles and responsibilities:
-
-
-
-### Stage 1: Assess & Plan
-
-- **Organization Leaders** provide vision and direction based on diagnostic findings
-- **Program Office** develops roadmaps using Economic View (ROI analysis) and Systems Thinking (big picture)
-- **Architecture Review Board (ARB)** confirms system architecture is robust and approves plans before hand-over to build teams
-- **Voice of Customer (VOC)** and **Voice of the Marketplace (VOM)** inform requirements and strategic direction
-
-### Stage 2: Agile Design, Build, Test
-
-- **Product Owners / Product Managers** drive adherence to the roadmap and manage the product backlog
-- **Scrum Masters** manage build teams and remove roadblocks
-- **Agile Build Teams** develop incremental features in sprint cycles
-
-<Callout type="concept" title="Develop on Cadence, Deliver on Demand">
-Teams work in consistent sprints but deploy when features are ready and business conditions are optimal. This decouples the development rhythm from the release schedule, enabling both predictability and flexibility.
-</Callout>
-
-### Stage 3: Deploy & Adopt Users
-
-- **Business Leaders** sign off on delivery requirements and confirm readiness
-- **Release Management** coordinates deployment logistics and rollback plans
-- **Change Management Team** ensures end users are prepared, trained, and supported
-- Continuous feedback flows back to Stage 1, creating a virtuous improvement cycle
-
-<AgileLifecycle />
-
-<Callout type="warning" title="Right-Size the Framework">
-Agile is designed for large-scale, multi-team efforts. For smaller engagements with a single development team, basic Scrum or Kanban may be more appropriate. Applying Agile to a small team adds unnecessary overhead. Match the framework to the scale of the effort.
+<Callout type="warning" title="What to Avoid in Year 1">
+Do not install an enterprise-wide Agile Release Train, a central AI Center of Excellence with intake governance, or a Program Increment planning cadence before any Pod has shipped a working AI solution. These structures require organizational maturity that doesn't yet exist and will create the bureaucratic drag that kills AI momentum in insurance organizations.
 </Callout>

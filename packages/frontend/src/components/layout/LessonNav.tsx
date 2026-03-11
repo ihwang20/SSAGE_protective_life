@@ -33,11 +33,13 @@ export default function LessonNav({
       return (
         <button
           disabled
-          className="flex items-center gap-2 px-4 py-2 text-sm bg-primary/40 text-white rounded-button cursor-not-allowed"
+          className="flex flex-col items-end gap-0.5 px-5 py-2.5 text-sm bg-primary/40 text-white rounded-button cursor-not-allowed"
           title={`Read for ${formatTime(minTimeRemaining)} more before continuing`}
         >
-          <Clock size={14} />
-          {formatTime(minTimeRemaining)}
+          <span className="flex items-center gap-2 font-semibold">
+            <Clock size={14} />
+            {formatTime(minTimeRemaining)}
+          </span>
         </button>
       );
     }
@@ -46,10 +48,13 @@ export default function LessonNav({
       return (
         <Link
           to={`/courses/${courseSlug}/modules/${nextLesson.moduleSlug}/lessons/${nextLesson.slug}`}
-          className="flex items-center gap-2 px-4 py-2 text-sm bg-primary text-white hover:bg-primary-hover transition-colors rounded-button"
+          className="flex flex-col items-end gap-0.5 px-5 py-2.5 text-sm bg-primary text-white hover:bg-primary-hover transition-colors rounded-button border-2 border-primary hover:border-primary-hover"
         >
-          Next
-          <ChevronRight size={16} />
+          <span className="flex items-center gap-2 font-semibold">
+            Next
+            <ChevronRight size={16} />
+          </span>
+          <span className="text-[11px] font-normal opacity-70 truncate max-w-[180px]">{nextLesson.title}</span>
         </Link>
       );
     }
@@ -58,11 +63,13 @@ export default function LessonNav({
       return (
         <Link
           to={knowledgeCheckLink}
-          className="flex items-center gap-2 px-4 py-2 text-sm bg-accent text-white rounded-button hover:opacity-90 transition-opacity"
+          className="flex flex-col items-end gap-0.5 px-5 py-2.5 text-sm bg-primary text-white rounded-button border-2 border-primary hover:bg-primary-hover hover:border-primary-hover transition-colors"
         >
-          <ClipboardCheck size={16} />
-          <span className="hidden sm:inline">Knowledge Check</span>
-          <span className="sm:hidden">Quiz</span>
+          <span className="flex items-center gap-2 font-semibold">
+            <ClipboardCheck size={15} />
+            Knowledge Check
+          </span>
+          <span className="text-[11px] font-normal opacity-70">Test your understanding</span>
         </Link>
       );
     }
@@ -70,9 +77,10 @@ export default function LessonNav({
     return (
       <Link
         to={`/courses/${courseSlug}/completion`}
-        className="flex items-center gap-2 px-4 py-2 text-sm bg-success text-white rounded-button hover:opacity-90 transition-opacity"
+        className="flex flex-col items-end gap-0.5 px-5 py-2.5 text-sm bg-success text-white rounded-button border-2 border-success hover:opacity-90 transition-opacity"
       >
-        Complete Course
+        <span className="font-semibold">Complete Course</span>
+        <span className="text-[11px] font-normal opacity-70">You've finished all lessons</span>
       </Link>
     );
   };
@@ -82,17 +90,20 @@ export default function LessonNav({
       {prevLesson ? (
         <Link
           to={`/courses/${courseSlug}/modules/${prevLesson.moduleSlug}/lessons/${prevLesson.slug}`}
-          className="flex items-center gap-2 px-4 py-2 text-sm text-text-secondary hover:text-primary transition-colors rounded-button border border-border hover:border-primary"
+          className="flex flex-col items-start gap-0.5 px-5 py-2.5 text-sm bg-white text-primary hover:bg-surface transition-colors rounded-button border-2 border-primary"
         >
-          <ChevronLeft size={16} />
-          Back
+          <span className="flex items-center gap-2 font-semibold">
+            <ChevronLeft size={16} />
+            Previous
+          </span>
+          <span className="text-[11px] font-normal text-text-secondary truncate max-w-[180px]">{prevLesson.title}</span>
         </Link>
       ) : (
         <div />
       )}
 
       <span className="text-xs text-text-secondary">
-        Lesson {currentIndex} of {totalLessons}
+        {currentIndex} / {totalLessons}
       </span>
 
       {forwardButton()}

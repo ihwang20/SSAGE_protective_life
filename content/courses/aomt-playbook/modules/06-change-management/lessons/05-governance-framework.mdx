@@ -5,40 +5,44 @@ estimated_duration_minutes: 7
 order: 5
 ---
 
-# Governance Framework
 
-Governance provides the decision-making structures and accountability mechanisms that keep the change on track. A well-designed governance framework balances oversight with agility, ensuring that decisions are made quickly by the right people with the right information.
+Governance provides the decision-making structures and accountability mechanisms that keep the change on track. A well-designed governance framework balances oversight with agility — enabling Pods to make decisions quickly while ensuring strategic alignment and risk management.
 
-## 4 Governance Components
+<Callout type="concept" title="Governance Enables Speed">
+Well-designed governance makes decisions *faster*, not slower. The test: if a Pod can't ship this week because it's waiting for a governance decision, the governance model is broken. Clear decision rights, documented upfront, eliminate the need for consensus on routine decisions. Escalation paths are for genuine strategic conflicts — not routine approvals.
+</Callout>
+
+## Pod Decision Rights (What Pods Own)
+
+Pods should be empowered to make the following decisions autonomously, without requiring governance approval:
+
+| Decision Type | Pod Owns | Notes |
+|---|---|---|
+| Backlog prioritization | Pod decides | PM owns the backlog; WSJF informs sequencing |
+| Sprint scope | Pod decides | Within committed outcome and quarterly objective |
+| Solution approach | Pod decides | Tech Lead makes architecture calls within defined constraints |
+| User research methods | Pod decides | PM selects discovery approach |
+| Model tuning and retraining | Pod decides | Within approved model risk guidelines |
+| New data source access | Escalate if PII or regulated data | Data governance review required for sensitive sources |
+| Cross-Pod dependencies | Cross-Pod sync | Lightweight weekly sync; no committee needed |
+| Scope expansion beyond original outcome | Escalate to Steering | Budget or strategic direction change required |
+| Model deployment in production | Escalate: Model Risk + Compliance | Insurance regulatory requirements apply |
+
+## Governance Structure (Right-Sized)
 
 <ProcessFlow steps={[
-  { title: "Steering Committee", description: "Executive-level body that sets strategic direction, removes organizational barriers, approves major scope changes, and ensures alignment with enterprise objectives. Meets monthly or as needed for critical decisions." },
-  { title: "Working Group", description: "Cross-functional operational team that manages day-to-day execution, resolves tactical issues, coordinates across workstreams, and reports progress to the Steering Committee. Meets weekly." },
-  { title: "Change Champions", description: "A network of embedded advocates across the affected organization who provide peer support, gather ground-level feedback, and serve as the human face of the change in their teams. Meets bi-weekly for coordination and updates." },
-  { title: "Feedback Council", description: "A representative group of end users who provide structured input on solution design, training effectiveness, and adoption barriers. Serves as the voice of the frontline in governance decisions. Meets bi-weekly, rotating membership to maintain fresh perspectives." }
+  { title: "Steering Committee", description: "Executive-level body that sets strategic direction, removes organizational barriers, and approves major scope changes. What it is not: a status-reporting forum. If the agenda is progress updates, cancel the meeting and send a written summary. Meets monthly. Decision authority: outcome objectives, budget, strategic pivots, major risk decisions." },
+  { title: "Pod Leads Sync (Replaces Working Group)", description: "A 30-minute weekly sync among Pod Product Managers to surface cross-Pod dependencies, share learnings, and flag blockers that can't be resolved Pod-to-Pod. No status reporting. Agenda driven by blockers and dependencies only. If there are none, the meeting doesn't happen." },
+  { title: "Change Champions Network", description: "Embedded advocates in claims, underwriting, and operations who provide peer support, gather frontline feedback, and serve as the human face of the change in their teams. Bi-weekly coordination. Insurance note: Identify your most respected senior adjusters and underwriters — their endorsement of an AI tool matters more than any formal communication campaign." },
+  { title: "AI Risk & Compliance Review (Insurance-Specific)", description: "A standing review mechanism for AI model deployments that touches regulated decisions (underwriting, claims eligibility, pricing). Not a standing committee — convened on demand when a Pod is preparing a production deployment. Includes Model Risk, Compliance, Legal, and the Pod's Tech Lead. Outputs: deployment approval, model card, monitoring commitments." }
 ]} />
 
-<Callout type="concept" title="Governance Is Not Bureaucracy">
-Governance should enable speed, not impede it. If governance meetings become status updates without decisions, if approval processes create bottlenecks that delay execution by weeks, or if governance artifacts become ends in themselves rather than tools for clarity — the framework needs to be simplified. Every governance activity should answer the question: "Does this help us make better decisions faster?"
+## Insurance-Specific Governance Considerations
+
+<Callout type="tip" title="Model Risk and Explainability">
+Insurance regulators increasingly require that AI decisions affecting policyholders be explainable and auditable. Build explainability requirements into model acceptance criteria from the start — not as a post-deployment remediation. Governance should include a standing practice of model cards: structured documentation of what a model does, what data it was trained on, known limitations, and monitoring commitments.
 </Callout>
 
-## Meeting Cadence
-
-| Body | Frequency | Duration | Key Agenda Items |
-|------|-----------|----------|-----------------|
-| Steering Committee | Monthly | 60 min | Strategic alignment review, barrier removal, major decision approval |
-| Working Group | Weekly | 45 min | Execution status, issue resolution, cross-workstream coordination |
-| Change Champions | Bi-weekly | 30 min | Feedback summary, adoption insights, upcoming communications preview |
-| Feedback Council | Bi-weekly | 45 min | User experience feedback, training gaps, solution improvement suggestions |
-
-<Callout type="tip" title="Governance Evolution">
-The governance framework should evolve as the change progresses. Early stages require more frequent Steering Committee engagement and heavier Working Group coordination. As the change stabilizes, governance can shift toward lighter-touch monitoring with the Feedback Council and Change Champions playing a larger role. Plan for governance to scale down, not just up.
+<Callout type="warning" title="Regulatory Variation by Line of Business">
+State insurance regulators have different requirements for algorithmic decision-making across personal lines, commercial lines, and life/annuity products. Engage compliance early to map regulatory requirements by line of business before AI deployments touch customer-facing decisions. This is not optional — it is a deployment prerequisite for insurance AI.
 </Callout>
-
-<Callout type="warning" title="Avoid Single Points of Failure">
-If the entire governance framework depends on one person (typically the program manager or change lead), the change is fragile. Ensure that at least two people can chair each governance body, that meeting notes and decisions are documented in a shared location, and that the governance framework survives personnel changes without disruption.
-</Callout>
-
-## Governance Decision Rights
-
-Document explicit decision rights for each governance body. Clarify which decisions each body can make autonomously, which require escalation, and what the escalation path looks like. This prevents both decision paralysis (everyone waiting for someone else to decide) and rogue decisions (individuals acting without appropriate authority).

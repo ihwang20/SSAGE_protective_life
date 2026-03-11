@@ -1,149 +1,10 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import {
-  X, BookOpen, Search, LayoutDashboard,
-  ChevronDown, ChevronRight, ChevronsLeft, ChevronsRight,
-  CheckCircle2, Circle, Disc, ClipboardCheck,
+  X, BookOpen, Search, ChevronDown, ChevronRight, ClipboardCheck,
 } from 'lucide-react';
-import { NavLink, Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useCourse } from '../../context/CourseContext';
 import SidebarNavItem from './SidebarNavItem';
-import type { CourseNavTree, CourseConfig } from '@playbook/shared';
-
-/* ------------------------------------------------------------------ */
-/*  Compute locked lessons and KCs based on course settings + progress  */
-/* ------------------------------------------------------------------ */
-
-function computeLockedItems(
-  navTree: CourseNavTree,
-  course: CourseConfig,
-): { lockedLessons: Set<string>; lockedKCs: Set<string> } {
-  const lockedLessons = new Set<string>();
-  const lockedKCs = new Set<string>();
-
-  const isLinear = course.navigation_mode === 'linear';
-  const requireKC = course.require_knowledge_checks ?? false;
-
-  // Locking disabled — always return empty sets
-  if (true) return { lockedLessons, lockedKCs };
-  if (!isLinear && !requireKC) return { lockedLessons, lockedKCs };
-
-  // Flat list of all lessons in order
-  const allLessons: Array<{ modSlug: string; slug: string; status: string }> = [];
-  for (const mod of navTree.modules) {
-    for (const lesson of mod.lessons) {
-      allLessons.push({ modSlug: mod.slug, slug: lesson.slug, status: lesson.status });
-    }
-  }
-
-  // For linear locking: index of first non-completed lesson (-1 if all done)
-  const firstNonCompleted = isLinear ? allLessons.findIndex((l) => l.status !== 'completed') : -1;
-
-  // For KC locking: index of first module whose KC is required but not done
-  let kcBlockedFromModIdx = Infinity;
-  if (requireKC) {
-    for (let i = 0; i < navTree.modules.length; i++) {
-      const mod = navTree.modules[i];
-      if (mod.has_knowledge_check && !mod.knowledge_check_completed) {
-        kcBlockedFromModIdx = i + 1;
-        break;
-      }
-    }
-  }
-
-  let flatIdx = 0;
-  for (let modIdx = 0; modIdx < navTree.modules.length; modIdx++) {
-    const mod = navTree.modules[modIdx];
-
-    for (const lesson of mod.lessons) {
-      const linearLocked = isLinear && firstNonCompleted !== -1 && flatIdx > firstNonCompleted;
-      const kcLocked = requireKC && modIdx >= kcBlockedFromModIdx;
-      if (linearLocked || kcLocked) {
-        lockedLessons.add(`${mod.slug}:${lesson.slug}`);
-      }
-      flatIdx++;
-    }
-
-    if (mod.has_knowledge_check) {
-      const allLessonsDone = mod.lessons.every((l) => l.status === 'completed');
-      const kcLinearLocked = isLinear && !allLessonsDone;
-      const kcKcLocked = requireKC && modIdx >= kcBlockedFromModIdx;
-      if (kcLinearLocked || kcKcLocked) {
-        lockedKCs.add(mod.slug);
-      }
-    }
-  }
-
-  return { lockedLessons, lockedKCs };
-}
-
-/* ------------------------------------------------------------------ */
-/*  Lesson status icon                                                 */
-/* ------------------------------------------------------------------ */
-
-function LessonStatusIcon({ status }: { status: string }) {
-  switch (status) {
-    case 'completed':
-      return <CheckCircle2 size={14} className="text-success" />;
-    case 'in_progress':
-      return <Disc size={14} className="text-primary" />;
-    default:
-      return <Circle size={14} className="text-primary/30" />;
-  }
-}
-
-/* ------------------------------------------------------------------ */
-/*  Circular activity progress ring                                    */
-/* ------------------------------------------------------------------ */
-
-function ActivityProgressRing({ done, total }: { done: number; total: number }) {
-  const r = 9;
-  const circ = 2 * Math.PI * r;
-  const fraction = total > 0 ? done / total : 0;
-  const offset = circ * (1 - fraction);
-  const allDone = done === total && total > 0;
-
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" className="flex-shrink-0">
-      <circle cx="11" cy="11" r={r} fill="none" stroke="currentColor" strokeWidth="2" className="text-primary/15" />
-      {total > 0 && (
-        <circle
-          cx="11" cy="11" r={r}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeDasharray={circ}
-          strokeDashoffset={offset}
-          strokeLinecap="round"
-          transform="rotate(-90 11 11)"
-          className={allDone ? 'text-success' : 'text-primary'}
-        />
-      )}
-      {allDone ? (
-        <polyline
-          points="7,11 10,14 15,8"
-          fill="none" stroke="currentColor" strokeWidth="1.5"
-          strokeLinecap="round" strokeLinejoin="round"
-          className="text-success"
-        />
-      ) : (
-        <text
-          x="11" y="14.5"
-          textAnchor="middle"
-          fontSize="5.5"
-          fontWeight="600"
-          className="fill-primary"
-          style={{ fontFamily: 'inherit' }}
-        >
-          {done}/{total}
-        </text>
-      )}
-    </svg>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Sidebar component                                                  */
-/* ------------------------------------------------------------------ */
 
 interface SidebarProps {
   open: boolean;
@@ -152,19 +13,14 @@ interface SidebarProps {
   onCollapseToggle: () => void;
 }
 
-export default function Sidebar({ open, collapsed, onClose, onCollapseToggle }: SidebarProps) {
+export default function Sidebar({ open, collapsed, onClose }: SidebarProps) {
   const { slug, moduleSlug } = useParams<{ slug: string; moduleSlug: string }>();
-  const { navTree, course, loading } = useCourse();
+  const { navTree, loading } = useCourse();
 
-  const { lockedLessons, lockedKCs } = useMemo(() => {
-    if (!navTree || !course) return { lockedLessons: new Set<string>(), lockedKCs: new Set<string>() };
-    return computeLockedItems(navTree, course);
-  }, [navTree, course]);
-
-  // Track which modules are expanded — only the current module starts expanded
+  // Track which modules are expanded
   const [expandedModules, setExpandedModules] = useState<Set<string>>(new Set());
 
-  // When the active module changes (navigation), ensure it's expanded
+  // Auto-expand the current module
   useEffect(() => {
     if (moduleSlug) {
       setExpandedModules((prev) => {
@@ -176,345 +32,127 @@ export default function Sidebar({ open, collapsed, onClose, onCollapseToggle }: 
     }
   }, [moduleSlug]);
 
-  // When the sidebar collapses, reset to only the current module expanded
-  useEffect(() => {
-    if (collapsed) {
-      setExpandedModules(new Set(moduleSlug ? [moduleSlug] : []));
-    }
-  }, [collapsed, moduleSlug]);
-
   const toggleModule = (modSlug: string) => {
     setExpandedModules((prev) => {
       const next = new Set(prev);
-      if (next.has(modSlug)) {
-        next.delete(modSlug);
-      } else {
-        next.add(modSlug);
-      }
+      if (next.has(modSlug)) next.delete(modSlug);
+      else next.add(modSlug);
       return next;
     });
   };
 
   return (
     <>
-      {/* Overlay for mobile */}
+      {/* Mobile overlay */}
       {open && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-          onClick={onClose}
-        />
+        <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={onClose} />
       )}
 
       <aside
-        className={`fixed top-0 left-0 h-full w-72 z-50 overflow-hidden transition-all duration-300 bg-gradient-to-b from-slate-50 to-indigo-50/60 shadow-elevation-3 border-r-0 lg:rounded-r-2xl lg:my-2 lg:mr-1 ${
-          open ? 'translate-x-0' : '-translate-x-full'
-        } lg:sticky lg:top-[3.75rem] lg:h-[calc(100vh-3.75rem)] lg:z-auto lg:translate-x-0 ${
-          collapsed ? 'lg:w-16' : ''
-        }`}
+        className={`fixed top-0 left-0 h-full z-50 transition-all duration-300 overflow-hidden
+          bg-surface border-r border-border
+          ${open ? 'translate-x-0' : '-translate-x-full'}
+          lg:sticky lg:top-[60px] lg:h-[calc(100vh-60px)] lg:z-auto
+          ${collapsed ? 'lg:w-0 lg:border-r-0' : 'lg:translate-x-0 lg:w-[280px]'}
+          w-[280px]`}
       >
         <div className="h-full overflow-y-auto flex flex-col">
           {/* Mobile header */}
-          <div className="flex items-center justify-between p-4 border-b border-indigo-100/50 lg:hidden">
-            <span className="font-semibold text-sm text-slate-800">Navigation</span>
+          <div className="flex items-center justify-between px-5 py-3 border-b border-border lg:hidden">
+            <span className="font-semibold text-sm text-text-primary">Navigation</span>
             <button
               onClick={onClose}
-              className="p-1 rounded hover:bg-indigo-50/50 text-slate-500"
+              className="p-1 rounded hover:bg-border text-text-secondary"
               aria-label="Close sidebar"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           </div>
 
-          {/* Desktop header: Course Overview + collapse toggle */}
-          <div className="hidden lg:flex items-center px-3 py-2 border-b border-indigo-100/50">
-            {collapsed ? (
-              /* Collapsed: just the toggle centered */
-              <div className="flex items-center justify-center w-full">
-                <button
-                  onClick={onCollapseToggle}
-                  className="p-1.5 rounded-md transition-colors hover:bg-indigo-50/50 text-primary"
-                  title="Expand sidebar"
-                >
-                  <ChevronsRight size={18} />
-                </button>
+          {/* Navigation */}
+          <nav className="flex-1" aria-label="Course navigation">
+            {loading ? (
+              <div className="px-5 py-8 text-sm text-text-secondary animate-pulse">
+                Loading navigation...
               </div>
-            ) : (
-              /* Expanded: Course Overview on left, collapse on right */
-              <>
-                {slug && (
-                  <Link
-                    to={`/courses/${slug}`}
-                    className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:bg-indigo-50/50 hover:text-slate-800 rounded-md px-2 py-1.5 transition-colors"
-                  >
-                    <LayoutDashboard size={16} className="text-primary" />
-                    Overview
-                  </Link>
-                )}
-                <div className="flex-1" />
-                <button
-                  onClick={onCollapseToggle}
-                  className="p-1.5 rounded-md transition-colors hover:bg-indigo-50/50 text-primary"
-                  title="Collapse sidebar"
-                >
-                  <ChevronsLeft size={18} />
-                </button>
-              </>
-            )}
-          </div>
+            ) : navTree ? (
+              navTree.modules.map((mod) => {
+                const isExpanded = expandedModules.has(mod.slug);
+                const isActiveSection = mod.slug === moduleSlug;
 
-          {/* Navigation content */}
-          <nav className="flex-1 py-2" aria-label="Course navigation">
-            {collapsed ? (
-              /* ====== COLLAPSED ICON RAIL ====== */
-              <>
-                {/* Course Overview icon */}
-                {slug && (
-                  <NavLink
-                    to={`/courses/${slug}`}
-                    end
-                    title="Course Overview"
-                    className={({ isActive }) =>
-                      `flex items-center justify-center w-10 h-10 mx-auto rounded-md transition-colors ${
-                        isActive
-                          ? 'bg-primary/10 text-primary'
-                          : 'text-primary hover:bg-indigo-50/50'
-                      }`
-                    }
-                  >
-                    <LayoutDashboard size={18} />
-                  </NavLink>
-                )}
+                return (
+                  <div key={mod.slug} className="border-b border-border">
+                    {/* Section header */}
+                    <button
+                      onClick={() => toggleModule(mod.slug)}
+                      className={`w-full flex items-center justify-between px-5 py-3.5 text-left transition-colors
+                        hover:bg-primary/5
+                        ${isActiveSection ? 'bg-primary/[0.08]' : ''}`}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className="inline-flex items-center justify-center text-[11px] font-bold text-primary bg-primary/10 rounded px-1.5 py-0.5 flex-shrink-0">
+                          {mod.order}
+                        </span>
+                        <span className="text-xs font-semibold text-text-secondary leading-snug truncate">
+                          {mod.title}
+                        </span>
+                      </div>
+                      <span className="flex-shrink-0 ml-2 text-text-secondary/60">
+                        {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                      </span>
+                    </button>
 
-                {loading ? (
-                  <div className="flex justify-center py-4">
-                    <div className="w-5 h-5 rounded-full bg-surface animate-pulse" />
-                  </div>
-                ) : navTree ? (
-                  navTree.modules.map((mod) => {
-                    const isExpanded = expandedModules.has(mod.slug);
-                    return (
-                      <div key={mod.slug} className="mt-2 first:mt-1">
-                        {/* Module number badge — click to toggle */}
-                        <button
-                          onClick={() => toggleModule(mod.slug)}
-                          className="w-full flex items-center justify-center py-1 hover:opacity-80 transition-opacity"
-                          title={`${mod.order}. ${mod.title}${mod.status === 'completed' ? ' (Completed)' : ''}`}
-                        >
-                          <span className="relative">
-                            <span className={`w-7 h-7 flex items-center justify-center rounded-full text-[11px] font-bold ${
-                              mod.status === 'completed'
-                                ? 'bg-success/15 text-success'
-                                : isExpanded
-                                  ? 'bg-primary/15 text-primary'
-                                  : 'bg-primary/[0.06] text-primary'
-                            }`}>
-                              {mod.status === 'completed' ? (
-                                <CheckCircle2 size={14} />
-                              ) : (
-                                mod.order
-                              )}
-                            </span>
-                          </span>
-                        </button>
-
-                        {/* Lesson status icons — only for expanded module */}
-                        {isExpanded && (
-                          <div className="flex flex-col items-center gap-0.5 py-0.5">
-                            {mod.lessons.map((lesson) => (
-                              <NavLink
-                                key={lesson.slug}
-                                to={`/courses/${slug}/modules/${mod.slug}/lessons/${lesson.slug}`}
-                                title={`${mod.order}.${lesson.order} ${lesson.title}`}
-                                className={({ isActive }) =>
-                                  `flex items-center justify-center w-8 h-7 rounded transition-colors ${
-                                    isActive
-                                      ? 'bg-primary/10 text-primary'
-                                      : 'hover:bg-indigo-50/50'
-                                  }`
-                                }
-                              >
-                                <LessonStatusIcon status={lesson.status} />
-                              </NavLink>
-                            ))}
-                            {mod.has_knowledge_check && (
-                              <NavLink
-                                to={`/courses/${slug}/modules/${mod.slug}/knowledge-check`}
-                                title="Knowledge Check"
-                                className={({ isActive }) =>
-                                  `flex items-center justify-center w-8 h-7 rounded transition-colors ${
-                                    isActive
-                                      ? 'bg-primary/10 text-primary'
-                                      : 'hover:bg-indigo-50/50'
-                                  }`
-                                }
-                              >
-                                <ClipboardCheck size={14} className="text-primary" />
-                              </NavLink>
-                            )}
-                          </div>
+                    {/* Lesson items */}
+                    {isExpanded && (
+                      <div className="bg-white">
+                        {mod.lessons.map((lesson) => (
+                          <SidebarNavItem
+                            key={lesson.slug}
+                            to={`/courses/${slug}/modules/${mod.slug}/lessons/${lesson.slug}`}
+                            title={lesson.title}
+                            status={lesson.status}
+                          />
+                        ))}
+                        {mod.has_knowledge_check && (
+                          <SidebarNavItem
+                            key={`${mod.slug}-kc`}
+                            to={`/courses/${slug}/modules/${mod.slug}/knowledge-check`}
+                            title="Knowledge Check"
+                            status="not_started"
+                            isKnowledgeCheck
+                          />
                         )}
                       </div>
-                    );
-                  })
-                ) : null}
-              </>
+                    )}
+                  </div>
+                );
+              })
             ) : (
-              /* ====== EXPANDED VIEW ====== */
-              <>
-                {loading ? (
-                  <div className="px-4 py-8 text-sm text-text-secondary animate-pulse">
-                    Loading navigation...
-                  </div>
-                ) : navTree ? (
-                  <>
-                    <p className="px-4 pt-3 pb-1 text-xs font-bold uppercase tracking-widest text-slate-400">
-                      Modules
-                    </p>
-                    {navTree.modules.map((mod) => {
-                      const isExpanded = expandedModules.has(mod.slug);
-                      return (
-                        <div key={mod.slug}>
-                          {/* Module header — clickable to expand/collapse */}
-                          <button
-                            onClick={() => toggleModule(mod.slug)}
-                            className="w-full flex items-center justify-between px-4 py-2 mt-1 first:mt-0 text-left hover:bg-indigo-50/50 rounded-md transition-colors"
-                          >
-                            <div className="min-w-0 flex-1 flex items-center gap-2">
-                              <p className="text-sm font-semibold truncate">
-                                <span className="text-purple-600">{mod.order}.</span>{' '}
-                                <span className="text-slate-800">{mod.title}</span>
-                              </p>
-                              {mod.status === 'completed' && (
-                                <CheckCircle2 size={12} className="text-success flex-shrink-0" />
-                              )}
-                              {mod.status === 'in_progress' && (
-                                <Disc size={12} className="text-primary flex-shrink-0" />
-                              )}
-                            </div>
-                            <span className="flex-shrink-0 ml-2">
-                              {isExpanded ? (
-                                <ChevronDown size={16} className="text-primary/40" />
-                              ) : (
-                                <ChevronRight size={16} className="text-primary/40" />
-                              )}
-                            </span>
-                          </button>
-
-                          {/* Collapsible lesson list */}
-                          <div
-                            className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
-                              isExpanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
-                            }`}
-                          >
-                            {(() => {
-                              // Group lessons by activity (preserving order of first appearance)
-                              const groups: Array<{ activity: string | null; lessons: typeof mod.lessons }> = [];
-                              for (const lesson of mod.lessons) {
-                                const act = lesson.activity ?? null;
-                                const existing = groups.find((g) => g.activity === act);
-                                if (existing) {
-                                  existing.lessons.push(lesson);
-                                } else {
-                                  groups.push({ activity: act, lessons: [lesson] });
-                                }
-                              }
-                              return groups.map((group) => {
-                                const done = group.lessons.filter((l) => l.status === 'completed').length;
-                                return (
-                                  <div key={group.activity ?? '__ungrouped__'}>
-                                    {group.activity && (
-                                      <div className="flex items-center gap-2 px-4 pt-3 pb-1">
-                                        <ActivityProgressRing done={done} total={group.lessons.length} />
-                                        <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 truncate">
-                                          {group.activity}
-                                        </span>
-                                      </div>
-                                    )}
-                                    {group.lessons.map((lesson) => (
-                                      <SidebarNavItem
-                                        key={lesson.slug}
-                                        to={`/courses/${slug}/modules/${mod.slug}/lessons/${lesson.slug}`}
-                                        title={`${mod.order}.${lesson.order} ${lesson.title}`}
-                                        status={lesson.status}
-                                        locked={lockedLessons.has(`${mod.slug}:${lesson.slug}`)}
-                                      />
-                                    ))}
-                                  </div>
-                                );
-                              });
-                            })()}
-                            {mod.has_knowledge_check && (
-                              <SidebarNavItem
-                                key={`${mod.slug}-kc`}
-                                to={`/courses/${slug}/modules/${mod.slug}/knowledge-check`}
-                                title="Knowledge Check"
-                                status="not_started"
-                                isKnowledgeCheck
-                                locked={lockedKCs.has(mod.slug)}
-                              />
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </>
-                ) : (
-                  <div className="px-4 py-8 text-sm text-slate-500">
-                    No content available.
-                  </div>
-                )}
-              </>
+              <div className="px-5 py-8 text-sm text-text-secondary">No content available.</div>
             )}
           </nav>
 
           {/* Footer links */}
-          {collapsed ? (
-            <div className="border-t border-indigo-100/50 py-2 flex flex-col items-center gap-1">
-              <NavLink
-                to={`/courses/${slug}/glossary`}
-                title="Glossary"
-                className={({ isActive }) =>
-                  `flex items-center justify-center w-10 h-10 rounded-md transition-colors ${
-                    isActive
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-primary hover:bg-indigo-50/50'
-                  }`
-                }
-              >
-                <BookOpen size={16} />
-              </NavLink>
-              <NavLink
-                to={`/courses/${slug}/search`}
-                title="Search"
-                className={({ isActive }) =>
-                  `flex items-center justify-center w-10 h-10 rounded-md transition-colors ${
-                    isActive
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-primary hover:bg-indigo-50/50'
-                  }`
-                }
-              >
-                <Search size={16} />
-              </NavLink>
-            </div>
-          ) : (
-            <div className="border-t border-indigo-100/50 p-3 mt-auto">
-              <Link
-                to={`/courses/${slug}/glossary`}
-                className="flex items-center gap-3 px-3 py-2 text-sm text-slate-500 hover:bg-indigo-50/50 hover:text-slate-800 rounded-md transition-colors"
-              >
-                <BookOpen size={16} className="text-primary" />
-                Glossary
-              </Link>
-              <Link
-                to={`/courses/${slug}/search`}
-                className="flex items-center gap-3 px-3 py-2 text-sm text-slate-500 hover:bg-indigo-50/50 hover:text-slate-800 rounded-md transition-colors"
-              >
-                <Search size={16} className="text-primary" />
-                Search
-              </Link>
-            </div>
-          )}
+          <div className="border-t border-border p-4">
+            {slug && (
+              <>
+                <Link
+                  to={`/courses/${slug}/glossary`}
+                  className="flex items-center gap-3 px-3 py-2 text-sm text-text-secondary hover:bg-primary/5 hover:text-text-primary rounded transition-colors"
+                >
+                  <BookOpen size={15} className="text-primary" />
+                  Glossary
+                </Link>
+                <Link
+                  to={`/courses/${slug}/search`}
+                  className="flex items-center gap-3 px-3 py-2 text-sm text-text-secondary hover:bg-primary/5 hover:text-text-primary rounded transition-colors"
+                >
+                  <Search size={15} className="text-primary" />
+                  Search
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </aside>
     </>
