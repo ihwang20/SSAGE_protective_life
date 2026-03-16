@@ -4,7 +4,7 @@ export default function PlaybookStructure() {
   const sections = [
     {
       title: 'Section I',
-      sub: 'Practitioners Playbook',
+      sub: 'Practitioners Guidebook',
       color: '#4F46E5',
       chapters: [
         {
@@ -54,10 +54,10 @@ export default function PlaybookStructure() {
     <ScrollReveal>
       <div className="my-8">
         <h3 style={{ fontWeight: 700, fontSize: '1.1rem', color: '#1E1B4B', marginBottom: '0.25rem' }}>
-          Playbook Structure: Three Sections
+          Guidebook Structure: Three Sections
         </h3>
         <p style={{ fontSize: '0.85rem', color: '#6B7280', marginBottom: '1rem' }}>
-          The playbook is organized into three interconnected sections covering practice, sustainment, and change management.
+          The guidebook is organized into three interconnected sections covering practice, sustainment, and change management.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
           {sections.map((s, i) => (

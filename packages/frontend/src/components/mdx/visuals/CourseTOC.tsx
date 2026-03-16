@@ -3,9 +3,9 @@ import ScrollReveal from '../ScrollReveal';
 const sections = [
   {
     num: '01',
-    title: 'Playbook Overview',
+    title: 'Guidebook Overview',
     lessons: 6,
-    description: 'Objectives, guiding principles, the AI-Enabled Problem Solving framework, and playbook structure',
+    description: 'Objectives, guiding principles, the AI-Enabled Problem Solving framework, and guidebook structure',
     color: '#6B7280',
   },
   {
@@ -38,7 +38,7 @@ const sections = [
   },
   {
     num: '06',
-    title: 'Playbook Summary & Next Steps',
+    title: 'Guidebook Summary & Next Steps',
     lessons: 1,
     description: 'Key takeaways and preparing to apply the methodology in practice',
     color: '#374151',

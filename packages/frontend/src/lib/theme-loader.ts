@@ -34,5 +34,5 @@ export function applyTheme(theme: ThemeConfig): void {
   root.style.setProperty('--radius-input', theme.border_radius.input);
 
   // Update page title
-  document.title = 'AI-Enabled Problem Solving Playbook';
+  document.title = 'AI-Enabled Problem Solving Guidebook';
 }
