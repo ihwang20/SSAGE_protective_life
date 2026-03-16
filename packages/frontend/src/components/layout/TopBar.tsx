@@ -16,11 +16,13 @@ export default function TopBar({ onMobileMenuToggle }: TopBarProps) {
   const { user, logout } = useAuth();
   const { canZoomIn, canZoomOut, zoomIn, zoomOut } = useFontSize();
 
-  const completedPercent = navTree
-    ? Math.round((navTree.completed_lessons / Math.max(navTree.total_lessons, 1)) * 100)
-    : 0;
-
   const currentModule = moduleSlug ? navTree?.modules.find((m) => m.slug === moduleSlug) : null;
+
+  const completedPercent = currentModule
+    ? Math.round((currentModule.lessons.filter((l) => l.status === 'completed').length / Math.max(currentModule.lessons.length, 1)) * 100)
+    : navTree
+      ? Math.round((navTree.completed_lessons / Math.max(navTree.total_lessons, 1)) * 100)
+      : 0;
   const currentLesson = currentModule && lessonSlug ? currentModule.lessons.find((l) => l.slug === lessonSlug) : null;
 
   return (
