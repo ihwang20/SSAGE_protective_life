@@ -269,20 +269,23 @@ export default function Sidebar({ open, collapsed, onClose, onCollapseToggle }: 
               <>
                 {/* Course Overview icon */}
                 {slug && (
-                  <NavLink
-                    to={`/courses/${slug}`}
-                    end
-                    title="Course Overview"
-                    className={({ isActive }) =>
-                      `flex items-center justify-center w-10 h-10 mx-auto rounded-md transition-colors ${
-                        isActive
-                          ? 'bg-primary/10 text-primary'
-                          : 'text-primary hover:bg-indigo-50/50'
-                      }`
-                    }
-                  >
-                    <LayoutDashboard size={18} />
-                  </NavLink>
+                  <>
+                    <NavLink
+                      to={`/courses/${slug}`}
+                      end
+                      title="Course Overview"
+                      className={({ isActive }) =>
+                        `flex items-center justify-center w-10 h-10 mx-auto rounded-md transition-colors ${
+                          isActive
+                            ? 'bg-primary/10 text-primary'
+                            : 'text-primary hover:bg-indigo-50/50'
+                        }`
+                      }
+                    >
+                      <LayoutDashboard size={18} />
+                    </NavLink>
+                    <div className="mx-auto w-5 border-t border-slate-200 mt-2" />
+                  </>
                 )}
 
                 {loading ? (
