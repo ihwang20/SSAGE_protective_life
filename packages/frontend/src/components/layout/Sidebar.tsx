@@ -370,7 +370,7 @@ export default function Sidebar({ open, collapsed, onClose, onCollapseToggle }: 
                   </div>
                 ) : navTree ? (
                   <>
-                    <p className="px-4 pt-3 pb-1 text-xs font-bold uppercase tracking-widest text-slate-400">
+                    <p className="px-4 pt-3 pb-0 text-xs font-bold uppercase tracking-widest text-slate-400">
                       Modules
                     </p>
                     {navTree.modules.map((mod) => {
