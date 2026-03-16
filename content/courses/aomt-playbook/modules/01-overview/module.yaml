@@ -1,15 +1,15 @@
-title: "Playbook Overview"
+title: "Guidebook Overview"
 slug: "01-overview"
-description: "Introduction to the AI-Enabled Problem Solving framework, its principles, and playbook structure."
+description: "Introduction to the AI-Enabled Problem Solving framework, its principles, and guidebook structure."
 objectives:
-  - "Understand the purpose and scope of the AI-Enabled Problem Solving Playbook"
+  - "Understand the purpose and scope of the AI-Enabled Problem Solving Guidebook"
   - "Learn the two core principles: Data First and AI First"
-  - "Familiarize with the core activities and playbook structure"
+  - "Familiarize with the core activities and guidebook structure"
 estimated_duration_minutes: 30
 lessons:
   - "01-cover-and-overview"
-  - "02-playbook-objectives"
+  - "02-guidebook-objectives"
   - "03-guiding-principles"
   - "04-introducing-aomt"
-  - "05-playbook-structure"
+  - "05-guidebook-structure"
   - "06-metro-cable-exercise"

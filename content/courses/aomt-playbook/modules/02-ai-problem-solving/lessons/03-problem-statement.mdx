@@ -6,39 +6,42 @@ order: 3
 activity: "Phase 1: Iterative Diagnosis"
 ---
 
+# Problem Statement
 
-A well-crafted problem statement is the foundation of any effective diagnostic process. It defines what is being investigated, why it matters, who is affected, and how success will be measured — without presuming a solution.
+A well-crafted <GlossaryTerm term="Problem Statement">Problem Statement</GlossaryTerm> is the foundation of every engagement. It establishes the boundaries of investigation, aligns stakeholders on scope, and provides the criteria against which all findings and recommendations will be measured.
 
-## Elements of an Effective Problem Statement
+## The 7 Elements
+
+Every Problem Statement should address these seven elements:
 
 <ProblemStatementElements />
 
-<ProcessFlow steps={[
-  { title: "Observable Gap", description: "Quantified evidence of the current-state performance gap, grounded in data rather than perception. Example: \"First-visit resolution rate has declined from 78% to 62% over 12 months.\"" },
-  { title: "Scope and Boundaries", description: "Clear definition of what is in scope (and what is explicitly out of scope) for the investigation. Prevents scope creep and focuses analytical effort." },
-  { title: "Decision Makers and Stakeholders", description: "Who will act on the findings? Who is affected? Who must approve recommendations? Identifying these upfront shapes the analysis and output format." },
-  { title: "Success Measures", description: "Explicit, quantifiable criteria for what \"solved\" looks like. Without success measures, there is no objective basis for evaluating whether the intervention worked." },
-  { title: "Timeline and Urgency", description: "External or internal constraints that bound the analysis. For Metro Cable: a PSC Rate Case hearing in 12 months that requires demonstrated improvement." }
-]} />
+
 
 <Callout type="concept" title="Key Principle: The Problem Statement Is a Living Document">
 The Problem Statement is drafted at the start of the engagement but refined throughout the diagnostic process. As data reveals unexpected patterns or stakeholders provide new context, the Problem Statement should be updated to reflect the evolving understanding.
 </Callout>
 
+## Crafting the Problem Statement with AI
+
+AI can accelerate Problem Statement development by analyzing initial data to suggest scope boundaries and surface potential success measures. However, the practitioner must validate AI suggestions against stakeholder context and organizational realities.
+
 <Callout type="warning" title="Avoid Solution Bias">
 A Problem Statement should never prescribe a solution. "We need to implement a chatbot" is a solution statement. "Customer wait times exceed industry benchmarks by 40%, driving churn" is a problem statement. Let the data guide you to solutions.
 </Callout>
 
-<ReflectionPrompt question="Think about a current challenge in your organization. Can you frame it as a Problem Statement using these elements? What would be the 'Observable Gap' and 'Success Measures' for your problem?" />
+<ReflectionPrompt
+  question="Think about a current challenge in your organization. Can you frame it as a Problem Statement using the 7 elements? What would be the 'Description' and 'Success Measures' for your problem?"
+/>
 
 ## Metro Cable Example
 
-<Callout type="note" title="Metro Cable Problem Statement">
-**Observable Gap:** First-visit resolution (FVR) rate has declined from 78% to 62% over the past 12 months, a 16-point deterioration that is costing the company an estimated $2–3M annually in repeat dispatch costs and is directly driving declining customer satisfaction scores.
-
-**Scope:** Field service dispatch operations in the Kansas City metro area. Excludes back-office billing issues and network infrastructure failures.
-
-**Success Measure:** Restore FVR to ≥75% within 12 months. Demonstrate measurable improvement in customer satisfaction scores sufficient to support PSC Rate Case hearing.
-</Callout>
-
 <ProblemStatementEvaluation />
+
+<DetailsReveal summary="Metro Cable: Operational Context Behind This Problem Statement">
+Metro Cable's field service division was experiencing a measurable decline in first-visit resolution rates — dropping from 78% to 62% over 12 months against an industry benchmark of ~85%. The root issue was operational: dispatch accuracy, technician-to-job matching, and parts availability were all contributing to repeat dispatches. Customers in scope included both end subscribers (awaiting service) and internal field technicians (whose workload and routing efficiency were directly affected). The 12-month time frame aligned with an upcoming PSC Rate Case hearing, creating a hard deadline for demonstrated improvement.
+</DetailsReveal>
+
+In the Metro Cable case study, the Problem Statement centered on operational inefficiency in field service dispatch. The description identified a gap between current dispatch accuracy (62%) and the industry benchmark (85%), with customers defined as both field technicians and end subscribers awaiting service.
+
+

@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Clock } from 'lucide-react';
 import { useLessonContent } from '../hooks/useLessonContent';
 import { useHeartbeat } from '../hooks/useHeartbeat';
 import { useCourse } from '../context/CourseContext';
 import { GlossarySeenProvider } from '../context/GlossarySeenContext';
 import LessonNav from '../components/layout/LessonNav';
+import { GradientMesh, TopographicBg } from '../components/ui/Backgrounds';
 import { pageTransition } from '../lib/animations';
 import { api } from '../lib/api';
 
@@ -160,46 +162,56 @@ export default function LessonPage() {
       animate="animate"
       exit="exit"
     >
-      {/* Lesson header: breadcrumb + badge + title */}
+      {/* Mini-hero header */}
       {meta && (
-        <div className="max-w-[860px] mx-auto px-6 sm:px-12 pt-8 pb-6">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-text-secondary mb-5">
-            <span
-              className="text-link hover:underline cursor-pointer"
-              onClick={() => window.history.back()}
+        <section className="relative overflow-hidden">
+          <GradientMesh className="opacity-40" />
+          <div className="relative max-w-3xl mx-auto px-6 sm:px-12 pt-8 pb-6">
+            {/* Module & progress context */}
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-xs font-bold uppercase tracking-wider text-primary">
+                Module {moduleNumber}: {moduleTitle}
+              </p>
+              <span className="text-xs text-text-secondary">
+                {Math.round((completedLessons / Math.max(totalLessons, 1)) * 100)}% complete
+              </span>
+            </div>
+
+            {/* Course progress bar */}
+            <div className="h-1.5 bg-surface rounded-full overflow-hidden mb-4">
+              <div
+                className="h-full bg-primary rounded-full transition-all duration-500"
+                style={{ width: `${(completedLessons / Math.max(totalLessons, 1)) * 100}%` }}
+              />
+            </div>
+
+            <p className="text-xs text-text-secondary mb-2">
+              Lesson {lessonInModule} of {lessonsInModule} in this module
+            </p>
+            <h1
+              className="text-2xl sm:text-3xl font-bold text-text-primary"
+              style={{ fontFamily: 'var(--font-heading)' }}
             >
-              {moduleTitle}
-            </span>
-            <span>›</span>
-            <span className="text-text-secondary truncate">{meta.title}</span>
+              {meta.title}
+            </h1>
+            <div className="flex items-center gap-2 mt-2 text-sm text-text-secondary">
+              <Clock size={14} />
+              <span>~{meta.estimated_duration_minutes} min</span>
+            </div>
           </div>
-
-          {/* Lesson badge */}
-          <div className="inline-flex items-center gap-1.5 bg-primary/[0.07] text-primary rounded-full px-3 py-1 text-xs font-semibold mb-4">
-            <span>📖</span>
-            <span>Module {moduleNumber} · Lesson {lessonInModule} of {lessonsInModule}</span>
-            <span className="text-text-secondary font-normal">· ~{meta.estimated_duration_minutes} min</span>
-          </div>
-
-          {/* Title */}
-          <h1
-            className="text-2xl sm:text-3xl font-bold text-primary leading-tight"
-            style={{ fontFamily: 'var(--font-heading)' }}
-          >
-            {meta.title}
-          </h1>
-        </div>
+        </section>
       )}
 
-      {/* Content area */}
-      <div className="max-w-[860px] mx-auto px-6 sm:px-12 py-8">
+      {/* Content area with topo background */}
+      <div className="relative">
+        <TopographicBg />
+        <div className="relative max-w-3xl mx-auto px-6 sm:px-12 py-8">
           {/* MDX content */}
           <GlossarySeenProvider>
             <article
               data-section-numbering
               style={{ '--lesson-prefix': `'${moduleNumber}.${lessonInModule}'` } as React.CSSProperties}
-              className="pl-content"
+              className="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-text-primary prose-p:text-text-secondary prose-a:text-link prose-strong:text-text-primary prose-code:text-primary prose-code:bg-primary-light prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-th:text-white"
             >
               {MdxComponent && <MdxComponent />}
             </article>
@@ -218,6 +230,7 @@ export default function LessonPage() {
             />
           )}
         </div>
+      </div>
     </motion.div>
   );
 }

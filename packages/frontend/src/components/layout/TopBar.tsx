@@ -1,76 +1,106 @@
-import { LogOut } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Home, Menu, LogOut, ZoomIn, ZoomOut } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
 import { useCourse } from '../../context/CourseContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
+import { useFontSize } from '../../context/FontSizeContext';
 
 interface TopBarProps {
-  onSidebarToggle: () => void;
+  onMobileMenuToggle: () => void;
 }
 
-export default function TopBar({ onSidebarToggle }: TopBarProps) {
+export default function TopBar({ onMobileMenuToggle }: TopBarProps) {
+  const { slug, moduleSlug, lessonSlug } = useParams<{ slug: string; moduleSlug: string; lessonSlug: string }>();
   const { course, navTree } = useCourse();
   const { theme } = useTheme();
   const { user, logout } = useAuth();
+  const { canZoomIn, canZoomOut, zoomIn, zoomOut } = useFontSize();
 
   const completedPercent = navTree
     ? Math.round((navTree.completed_lessons / Math.max(navTree.total_lessons, 1)) * 100)
     : 0;
 
-  const orgName = theme?.organization_name || 'Protective Life';
-  const orgMark = orgName
-    .split(/\s+/)
-    .map((w) => w[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
+  const currentModule = moduleSlug ? navTree?.modules.find((m) => m.slug === moduleSlug) : null;
+  const currentLesson = currentModule && lessonSlug ? currentModule.lessons.find((l) => l.slug === lessonSlug) : null;
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b-2 border-primary">
-      <div className="flex items-center h-[60px] px-6 gap-4">
-        {/* Hamburger / sidebar toggle */}
-        <button
-          onClick={onSidebarToggle}
-          className="flex flex-col gap-[5px] p-2 text-primary flex-shrink-0 hover:opacity-70 transition-opacity"
-          aria-label="Toggle sidebar"
+    <header className="sticky top-0 z-50 bg-white/60 backdrop-blur-xl border-b border-white/50 shadow-elevation-1">
+      <div className="relative flex items-center h-14 px-4 gap-3">
+        {/* Left group */}
+        <Link
+          to="/"
+          className="p-2 rounded-md hover:bg-surface transition-colors"
+          aria-label="All Courses"
+          title="All Courses"
         >
-          <span className="block w-[22px] h-[2px] bg-current rounded-sm" />
-          <span className="block w-[22px] h-[2px] bg-current rounded-sm" />
-          <span className="block w-[22px] h-[2px] bg-current rounded-sm" />
-        </button>
-
-        {/* Logo mark + org name */}
-        <Link to="/" className="flex items-center gap-2 flex-shrink-0 no-underline">
-          <div className="w-9 h-9 bg-primary rounded text-white flex items-center justify-center text-[13px] font-bold tracking-tight leading-none">
-            {orgMark}
-          </div>
-          <div className="hidden sm:block text-[13px] font-bold text-primary leading-tight max-w-[130px]">
-            {orgName}
-          </div>
+          <Home size={20} className="text-primary" />
         </Link>
 
-        {/* Course title */}
-        <div className="flex-1 text-sm font-semibold text-text-secondary truncate hidden md:block">
-          {course?.title}
+        <button
+          onClick={onMobileMenuToggle}
+          className="lg:hidden p-2 rounded-md hover:bg-surface transition-colors"
+          aria-label="Open navigation"
+        >
+          <Menu size={20} />
+        </button>
+
+        <div className="hidden sm:block shrink-0">
+          <img
+            src="/assets/Protective_Life_logo.svg.png"
+            alt={theme?.organization_name || 'Protective Life'}
+            className="h-8"
+          />
         </div>
 
-        {/* Progress bar + label */}
-        <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
-          <div className="w-[180px] h-1.5 bg-border rounded-full overflow-hidden">
-            <div
-              className="h-full rounded-full transition-all duration-500 ease-in-out"
-              style={{
-                width: `${completedPercent}%`,
-                background: 'linear-gradient(90deg, var(--color-primary), var(--color-secondary))',
-              }}
-            />
-          </div>
-          <span className="text-xs text-text-secondary whitespace-nowrap">{completedPercent}%</span>
+        {/* Centered breadcrumb */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          {currentModule ? (
+            <div className="flex flex-col items-center max-w-[50%]">
+              <span className="text-[10px] font-medium text-text-secondary uppercase tracking-wide truncate w-full text-center leading-none">
+                {currentModule.title}
+              </span>
+              <span className="text-sm font-semibold text-primary truncate w-full text-center leading-snug">
+                {currentLesson ? currentLesson.title : 'Knowledge Check'}
+              </span>
+            </div>
+          ) : (
+            <span className="text-base font-semibold text-primary truncate max-w-[50%]">
+              {course?.title || 'Loading...'}
+            </span>
+          )}
         </div>
 
-        {/* User avatar + logout */}
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Right group */}
+        <div className="hidden sm:flex items-center gap-1">
+          <button
+            onClick={zoomOut}
+            disabled={!canZoomOut}
+            className="p-1.5 rounded-md hover:bg-surface transition-colors text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed"
+            aria-label="Decrease text size"
+            title="Decrease text size"
+          >
+            <ZoomOut size={16} />
+          </button>
+          <button
+            onClick={zoomIn}
+            disabled={!canZoomIn}
+            className="p-1.5 rounded-md hover:bg-surface transition-colors text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed"
+            aria-label="Increase text size"
+            title="Increase text size"
+          >
+            <ZoomIn size={16} />
+          </button>
+        </div>
+
+        <div className="hidden sm:flex items-center gap-3 text-xs text-text-secondary">
+          <span>{completedPercent}% complete</span>
+        </div>
+
         {user && (
-          <div className="flex items-center gap-2 ml-1 flex-shrink-0">
+          <div className="flex items-center gap-2 ml-2">
             <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center">
               <span className="text-xs font-bold text-primary leading-none">
                 {user.name?.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase() || '?'}
@@ -86,6 +116,14 @@ export default function TopBar({ onSidebarToggle }: TopBarProps) {
             </button>
           </div>
         )}
+      </div>
+
+      {/* Progress bar */}
+      <div className="h-1 bg-surface/50">
+        <div
+          className="h-full bg-primary transition-all duration-600 ease-in-out"
+          style={{ width: `${completedPercent}%` }}
+        />
       </div>
     </header>
   );

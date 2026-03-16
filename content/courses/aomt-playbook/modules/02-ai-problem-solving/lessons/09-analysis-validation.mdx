@@ -6,18 +6,58 @@ order: 11
 activity: "Phase 1: Iterative Diagnosis"
 ---
 
+# Analysis Validation
 
-AI analysis must be validated before informing recommendations. Validation confirms that the analysis is technically sound, contextually appropriate, and consistent with known facts about the situation.
+Every AI-generated finding must be validated before it can inform decisions. AI models can produce plausible-sounding analysis that is factually incorrect, statistically misleading, or based on flawed assumptions. Rigorous validation is not optional — it is a core discipline of this methodology.
 
-<Callout type="warning" title="Never Rely on a Single AI Analysis">
-AI models can produce plausible-sounding but incorrect analysis. Correlation can be spurious. Pattern recognition can surface noise as signal. Always validate AI findings through at least two of three methods: re-running with different prompts, comparing against a second tool, and qualitative validation with domain experts.
+<Callout type="warning" title="Hallucination Risk">
+AI models can "hallucinate" — generating confident, detailed outputs that are partially or entirely fabricated. This risk is especially high when the AI is asked to provide specific numbers, benchmarks, or industry statistics from memory. Always verify AI-generated claims against primary sources.
 </Callout>
 
-## Validation Methods
+## Four Methods for Validating AI Output
 
-<ProcessFlow steps={[
-  { title: "Prompt Variation Testing", description: "Re-run the same analytical question with different prompt structures, different levels of specificity, and different framing. Consistent findings across prompt variations increase confidence." },
-  { title: "Cross-Tool Comparison", description: "Run the same analysis in a second AI tool. Major discrepancies indicate that the finding may be tool-specific rather than a genuine data pattern." },
-  { title: "Domain Expert Confirmation", description: "Present findings to a domain expert (e.g., an experienced dispatcher, a senior technician) and ask whether the pattern makes operational sense. Domain experts often quickly identify whether a finding is real or an artifact." },
-  { title: "Benchmark Comparison", description: "Compare findings against industry benchmarks or historical baselines. A finding that shows Metro Cable's FCR at 62% is more credible when external benchmarks confirm top-quartile performance is 85%." }
-]} />
+Teams should never rely on a single AI tool analysis for key determinations. AI outputs are inherently probabilistic — results can vary even with identical inputs. Use these four methods:
+
+1. **Multiple Runs — Same Tool** — Run the same prompt and data in separate sessions. If conclusions shift between runs, the finding is not robust enough to act on.
+
+2. **Prompt Variations** — Make slight alterations to prompt wording with the same data. Findings that hold across phrasings are more reliable than those sensitive to specific wording.
+
+3. **Cross-Tool Comparison** — Run the same prompt and data through different AI tools. Convergent findings across tools carry more weight than single-tool results.
+
+4. **Cross-Validation** — Ask a second AI tool to explicitly validate or critique the output of the first tool. This adversarial check surfaces assumptions and errors that self-review misses.
+
+<Callout type="concept" title="Metro Cable Staffing Example">
+When analyzing Metro Cable's staffing data, three separate AI runs produced different headline conclusions: "Appropriately Staffed," "Overstaffed," and "Right-Sized." However, all three runs identified the same underlying finding — inefficiencies in role distribution across zones. The consensus theme about distribution was far more reliable than the conflicting headline conclusions. This is why multiple runs matter: look for the patterns that appear consistently, not the headlines that vary.
+</Callout>
+
+## The Validation Framework
+
+A finding is considered a <GlossaryTerm term="Validated Gap">Validated Gap</GlossaryTerm> only when it satisfies all three validation criteria:
+
+1. **Quantitative Validation** — The finding is supported by statistical analysis of the actual data. Results must include confidence intervals, sample sizes, and significance tests where applicable.
+
+2. **Qualitative Validation** — The finding is confirmed by subject matter experts or stakeholders who can attest that it reflects operational reality. Data patterns without qualitative context may be artifacts or anomalies.
+
+3. **<GlossaryTerm term="Benchmark">Benchmark</GlossaryTerm> Validation** — The finding is contextualized against relevant industry benchmarks, historical baselines, or peer comparisons. A metric is only meaningful when compared to a standard.
+
+## Root Cause vs. Symptom
+
+<Callout type="concept" title="Dig Deeper">
+Many initial findings identify symptoms rather than root causes. A high call volume is a symptom; a confusing self-service portal that drives customers to call is a root cause. AI can help trace causal chains, but the practitioner must insist on asking "why?" at least 3-5 times before accepting a finding as a root cause.
+</Callout>
+
+## Validation Checklist
+
+For each finding, confirm:
+
+| Criterion | Question | Status |
+|-----------|----------|--------|
+| Quantitative | Is the finding statistically significant with adequate sample size? | Validated |
+| Qualitative | Have SMEs confirmed this matches operational reality? | Validated |
+| Benchmark | How does this compare to industry standards or historical baseline? | In Progress |
+| Root Cause | Is this a root cause or a symptom of a deeper issue? | In Progress |
+| Reproducible | Can the analysis be re-run with consistent results? | Not Started |
+
+<Callout type="tip" title="Document Everything">
+Record the validation status of every finding in a structured format. Unvalidated findings should be clearly marked as preliminary. This transparency builds stakeholder trust and prevents premature action on unverified insights.
+</Callout>

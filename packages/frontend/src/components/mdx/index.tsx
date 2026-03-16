@@ -17,10 +17,6 @@ import PromptScorer from './PromptScorer';
 import MultipleChoice from './MultipleChoice';
 import DetailsReveal from './DetailsReveal';
 import CaseStudyBanner from './CaseStudyBanner';
-import FeatureCard from './FeatureCard';
-import FeatureList from './FeatureList';
-import SectionDivider from './SectionDivider';
-import UserStory from './UserStory';
 import {
   CourseTOC,
   PhaseProgressionHex,
@@ -84,25 +80,36 @@ function MdxListItem(props: React.LiHTMLAttributes<HTMLLIElement>) {
 }
 
 function MdxBlockquote(props: React.HTMLAttributes<HTMLQuoteElement>) {
-  return <blockquote {...props} />;
+  return (
+    <blockquote
+      className="border-l-4 border-l-primary/30 bg-primary/5 px-4 py-3 my-4 rounded-r-card"
+      {...props}
+    />
+  );
 }
 
 function MdxTable(props: React.HTMLAttributes<HTMLTableElement>) {
-  return <table {...props} />;
+  return (
+    <ScrollReveal>
+      <div className="my-6 rounded-card border border-border overflow-hidden overflow-x-auto shadow-elevation-1">
+        <table className="w-full text-sm" {...props} />
+      </div>
+    </ScrollReveal>
+  );
 }
 
 function MdxThead(props: React.HTMLAttributes<HTMLTableSectionElement>) {
-  return <thead {...props} />;
+  return <thead className="bg-primary text-white" {...props} />;
 }
 
 function MdxTh(props: React.ThHTMLAttributes<HTMLTableCellElement>) {
-  return <th {...props} />;
+  return <th className="px-4 py-3 text-left font-semibold text-xs text-white" {...props} />;
 }
 
 function MdxTd(props: React.TdHTMLAttributes<HTMLTableCellElement>) {
   const { children, ...rest } = props;
   return (
-    <td {...rest}>
+    <td className="px-4 py-3 border-t border-border text-text-secondary" {...rest}>
       <AutoGlossaryHighlight>{children}</AutoGlossaryHighlight>
     </td>
   );
@@ -127,10 +134,6 @@ export const mdxComponents: Record<string, ComponentType<any>> = {
   MultipleChoice,
   DetailsReveal,
   CaseStudyBanner,
-  FeatureCard,
-  FeatureList,
-  SectionDivider,
-  UserStory,
 
   // Visual graphics
   CourseTOC,

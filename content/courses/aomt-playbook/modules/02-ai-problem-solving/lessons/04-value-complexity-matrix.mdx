@@ -6,20 +6,45 @@ order: 4
 activity: "Phase 2: Opportunity Prioritization"
 ---
 
+# Value vs. Complexity Matrix
 
-The Value vs. Complexity Matrix is a visual 2×2 grid that plots opportunities by their expected value against their implementation complexity. It is faster to execute than WSJF, requires less data, and produces a quadrant placement that stakeholders can absorb at a glance.
+The Value vs. Complexity Matrix is a visual prioritization tool that plots opportunities on a 2x2 grid. While less analytically rigorous than WSJF, it provides an intuitive framework for stakeholder discussions and is particularly effective for initial triage or when precise scoring data is not yet available.
 
-| Quadrant | Value | Complexity | Action |
-|---|---|---|---|
-| **Quick Wins** | High | Low | Do first — maximum ROI for minimum effort |
-| **Strategic Bets** | High | High | Plan carefully — high value justifies the investment |
-| **Fill-Ins** | Low | Low | Do when capacity exists — low priority |
-| **Avoid** | Low | High | Deprioritize — not worth the effort |
+## Plotting the Matrix
+
+When facilitating the matrix exercise with stakeholders:
+
+1. **Define the axes** — Agree on what "value" and "complexity" mean for this specific context. Value might be revenue impact, cost savings, or customer satisfaction improvement. Complexity might include technical difficulty, organizational change required, or time to implement.
+
+2. **Place opportunities independently** — Have each stakeholder place opportunities on the matrix before revealing others' placements. This prevents anchoring bias.
+
+3. **Discuss divergence** — Where stakeholders disagree on placement, facilitate a discussion to surface different assumptions and reach consensus.
+
+4. **Document rationale** — Record why each opportunity was placed in its quadrant, not just where it landed.
+
+<Callout type="tip" title="Presentation Impact">
+The Value vs. Complexity Matrix is one of the most effective presentation tools in the practitioner's toolkit. Executives can absorb the prioritization logic in seconds. Use color-coded dots for each opportunity, size them by estimated financial impact, and present the matrix as a single slide that tells the entire prioritization story at a glance.
+</Callout>
 
 <ValueComplexityMatrix />
 
-<ValueComplexityScatter />
+## When to Use Each Method
 
-<Callout type="concept" title="Workshop Tool">
-The Value vs. Complexity Matrix is particularly effective as a workshop facilitation tool. Print each opportunity on a card. Have stakeholders physically place the cards on the matrix grid. The act of physically moving cards generates discussion, surfaces disagreements, and builds shared understanding of trade-offs.
+<Callout type="concept" title="WSJF vs. Value-Complexity Matrix">
+WSJF is the preferred method when you have well-documented opportunities with quantified impact and estimated effort. The Value vs. Complexity Matrix is better suited for early-stage triage, stakeholder alignment workshops, or when comparing opportunities across different domains where direct quantitative comparison is difficult.
+</Callout>
+
+<Callout type="tip" title="Use Both Methods Together">
+The most effective approach combines both methods. Start with the Value vs. Complexity Matrix in stakeholder workshops to build consensus on relative positioning, then apply WSJF scoring to the opportunities that land in the Quick Wins and Strategic Bets quadrants for more precise sequencing.
+</Callout>
+
+<Callout type="concept" title="Metro Cable Matrix Example">
+During the Metro Cable engagement, the team plotted six validated opportunities on the matrix in a stakeholder workshop:
+
+- **Quick Wins** (High Value, Low Complexity): AI Dispatch Routing Pilot, Technician Skill-Match Algorithm — both leveraged existing data and could be prototyped in weeks.
+- **Strategic Bets** (High Value, High Complexity): Predictive Maintenance Alerting — high projected savings but required new sensor data pipelines and model development.
+- **Fill-Ins** (Low Value, Low Complexity): Automated Appointment Reminders — modest impact but trivial to implement alongside the dispatch work.
+- **Avoid** (Low Value, High Complexity): Full Network Digital Twin — compelling long-term vision but the infrastructure investment far exceeded near-term value.
+
+This single-slide view allowed executives to immediately see why the dispatch pilot was the recommended starting point and why the digital twin was deferred to a future horizon.
 </Callout>

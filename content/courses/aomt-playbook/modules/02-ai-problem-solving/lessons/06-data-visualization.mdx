@@ -6,27 +6,49 @@ order: 10
 activity: "Phase 1: Iterative Diagnosis"
 ---
 
+# Data Visualization
 
-Effective data visualization is not decoration — it is analysis. The right visualization reveals patterns that tabular data obscures, enables rapid hypothesis testing, and communicates findings to stakeholders who cannot read raw data.
+AI-enabled data visualization transforms raw data into interpretable visual patterns far faster than traditional <GlossaryTerm term="BI Tools">BI tools</GlossaryTerm>. By describing what you want to see in natural language, practitioners can generate complex visualizations in seconds, iterate on them rapidly, and uncover patterns that might take hours to find through manual exploration.
 
-<Callout type="concept" title="Visualization Drives Insight">
-The most important visualization is the one that changes your hypothesis. Start with exploratory visualizations to understand the data landscape, then build explanatory visualizations to communicate findings. These serve different audiences and different purposes.
-</Callout>
+## AI-Enabled Visualization Approach
 
-## Visualization Types for Diagnostic Work
+Rather than spending days learning visualization tool syntax or building dashboard configurations, practitioners describe their visualization needs directly to AI. The AI generates the visualization, and the practitioner interprets the results and requests refinements.
 
 <VisualizationTypes />
 
-| Chart Type | Best For | Common Use in Diagnosis |
-|---|---|---|
-| Bar Chart | Comparing categories | FCR rates by technician zone, job type, or certification level |
-| Scatter Plot | Relationships between variables | Travel time vs. first-visit resolution rate correlation |
-| Heat Map | Patterns across two dimensions | Resolution rate by zone and time of day |
-| Trend Line | Change over time | FCR rate decline over 12 months |
-| Distribution | Spread and outliers | Travel time distribution by zone |
+## Example: Geographic Mapping
+
+<PromptExample
+  prompt="Using the dispatch dataset, create a geographic heat map showing first-visit resolution rates by service zone. Overlay technician home base locations as points. Color-code zones from red (below 60% resolution) to green (above 85% resolution). Include a legend and label the 5 worst-performing zones."
+  response="Here is the geographic heat map of first-visit resolution rates across 47 service zones.\n\n**Key findings:**\n\n- The 5 worst-performing zones (**Southeast-12, Northeast-7, Central-3, West-19, South-22**) are clustered in areas where average technician travel distance exceeds 45 minutes.\n- Three of these zones have no technician home base within the zone boundary, suggesting a **geographic coverage gap** rather than a skill gap."
+/>
+
+<GeographicHeatMap />
 
 <Callout type="tip" title="Speed Advantage">
-A visualization that would take 2–4 hours to build in traditional BI tools can be generated in under 2 minutes through AI prompting. This speed enables practitioners to explore dozens of visual perspectives in a single analysis session, dramatically increasing the likelihood of discovering meaningful patterns.
+A visualization that would take 2-4 hours to build in traditional BI tools (data preparation, tool configuration, formatting) can be generated in under 2 minutes through AI prompting. This speed enables practitioners to explore dozens of visual perspectives in a single analysis session, dramatically increasing the likelihood of discovering meaningful patterns.
 </Callout>
 
-<ReflectionPrompt question="Suppose you have an employee roster containing technician names, hire dates, certifications, and zone assignments. What type of visualization might be helpful to your analysis? What chart type, grouping categories, colors, and labels would you specify in your prompt?" />
+## Iterating on Visualizations
+
+The real power of AI-enabled visualization is rapid iteration. After reviewing the initial output, request modifications:
+
+- "Zoom into the Southeast-12 zone and show individual dispatch points"
+- "Add a time dimension — show how resolution rates changed quarter over quarter"
+- "Overlay weather data to check for seasonal correlation"
+
+Each iteration takes seconds, enabling a conversational exploration of the data that is impossible with traditional tools.
+
+<MultiTurnPromptFCR />
+
+<Callout type="concept" title="Metro Cable: Geographic Visualization">
+A good early analysis is to make the data visual. Having data in a visual format can help teams understand key dynamics of the operations that might not be readily apparent in the dataset. In this case, the team is interested in understanding the geographic distribution of Metro Cable customers and service zones — this may prove valuable in future analysis.
+
+Using AI-enabled analysis tools, the team can quickly plot customer locations on a map of the service area. In the past, such analysis would have required specialized mapping tools and significant effort; AI reduces this to a simple prompt.
+</Callout>
+
+## Practice: Craft a Visualization Prompt
+
+<ReflectionPrompt
+  question="Suppose that you have an employee roster containing technician names, hire dates, certifications and zone assignments. What type of visualization might be helpful to your analysis? Write a prompt to generate that visualization and review the response provided to see how your prompt might be improved. Consider: chart type, grouping categories, colors and labels when creating your prompt."
+/>
