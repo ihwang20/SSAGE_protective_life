@@ -392,14 +392,6 @@ export default function Sidebar({ open, collapsed, onClose, onCollapseToggle }: 
                               )}
                             </div>
                             <div className="flex-shrink-0 flex items-center gap-1.5 ml-2">
-                              {(() => {
-                                const total = mod.lessons.length;
-                                const done = mod.lessons.filter((l) => l.status === 'completed').length;
-                                const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-                                return pct > 0 ? (
-                                  <span className="text-[11px] font-semibold text-primary/60">{pct}%</span>
-                                ) : null;
-                              })()}
                               {isExpanded ? (
                                 <ChevronDown size={16} className="text-primary/40" />
                               ) : (
