@@ -1,5 +1,5 @@
 import { Home, Menu, LogOut, ZoomIn, ZoomOut } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { useCourse } from '../../context/CourseContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
@@ -10,11 +10,17 @@ interface TopBarProps {
 }
 
 export default function TopBar({ onMobileMenuToggle }: TopBarProps) {
-  const { slug, moduleSlug, lessonSlug } = useParams<{ slug: string; moduleSlug: string; lessonSlug: string }>();
+  const { slug } = useParams<{ slug: string }>();
+  const location = useLocation();
   const { course, navTree } = useCourse();
   const { theme } = useTheme();
   const { user, logout } = useAuth();
   const { canZoomIn, canZoomOut, zoomIn, zoomOut } = useFontSize();
+
+  // Parse moduleSlug and lessonSlug from URL path directly (useParams only sees parent route params)
+  const pathMatch = location.pathname.match(/\/modules\/([^/]+)(?:\/lessons\/([^/]+))?/);
+  const moduleSlug = pathMatch?.[1];
+  const lessonSlug = pathMatch?.[2];
 
   const currentModule = moduleSlug ? navTree?.modules.find((m) => m.slug === moduleSlug) : null;
 
