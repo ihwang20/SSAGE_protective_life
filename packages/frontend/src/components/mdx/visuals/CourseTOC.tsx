@@ -24,7 +24,7 @@ const sections = [
   },
   {
     num: '04',
-    title: 'AI Tool Development & Agile Delivery',
+    title: 'Use Case Development',
     lessons: 5,
     description: 'Tool development lifecycle, design and prototyping, and Agile delivery approaches',
     color: '#0D9488',

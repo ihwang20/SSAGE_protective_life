@@ -35,23 +35,17 @@ Different metrics require different monitoring frequencies:
 Monitoring too frequently creates noise and alert fatigue. Monitoring too infrequently allows problems to compound undetected. Match the monitoring cadence to the speed at which the metric can change and the cost of delayed detection. Daily monitoring for a metric that moves quarterly wastes attention; quarterly monitoring for a metric that can collapse daily is dangerous.
 </Callout>
 
-## Agile Governance for Feedback
+## Feedback Management
 
-<Callout type="concept" title="Lightweight, Responsive Governance">
-Feedback governance should follow Agile principles: short review cycles, data-driven decisions, and minimal bureaucracy. A monthly 30-minute performance review with the solution owner, key users, and technical lead is more effective than a quarterly 3-hour steering committee. The goal is to detect and respond to changes quickly, not to produce comprehensive reports that no one reads.
+<Callout type="concept" title="Responsive Feedback">
+Feedback should be managed in frequent short sessions focused on data-driven decision making. A monthly 30-minute review session with key stakeholder is more effective than a large 2-hour meeting with leadership once per quarter. The goal is to detect and respond to changes quickly, while minimizing time spent producing comprehensive performance reports that may not be read or acted on.
 </Callout>
 
 ## Performance Scorecards
 
 A performance scorecard goes beyond a standard dashboard. While dashboards display data, scorecards include **decision triggers** — specific metric values that require specific **responses**. Without decision triggers, scorecards become passive information displays that people review and ignore.
 
-Each metric on the scorecard should specify:
-
-- **Green zone** — Performance is on track. No action needed.
-- **Yellow zone** — Performance is drifting. Investigation required within one monitoring cycle.
-- **Red zone** — Performance has breached an unacceptable threshold. Immediate intervention required.
-
-Decision triggers connect observations directly to the product backlog and drive sprint-level improvements, ensuring that monitoring leads to action rather than just awareness.
+Each metric on the scorecard should specify Green, Yellow, or Red zones. Decision triggers connect observations directly to the product backlog and drive sprint-level improvements, ensuring that monitoring leads to action rather than just awareness.
 
 ## Continuous Improvement Cycle
 

@@ -83,25 +83,9 @@ entries:
     definition: "An AI system that performs tasks autonomously within defined parameters, planning steps, executing actions, and adapting based on results without requiring human direction at each stage."
     first_lesson: "01-ai-tool-development"
 
-  - term: "Epic"
-    definition: "A high-level capability encompassing multiple user stories. Epics correspond to major solution components that can be estimated, prioritized, and implemented independently."
-    first_lesson: "02-design-and-prototype"
-
-  - term: "User Story"
-    definition: "A specific need from a user perspective: 'As a [role], I want [capability] so that [benefit].' Describes user experience, not system architecture."
-    first_lesson: "02-design-and-prototype"
-
-  - term: "Sprint"
-    definition: "A fixed-duration work cycle, typically two weeks. During Phase 3, feedback becomes backlog items prioritized and committed to sprints."
-    first_lesson: "04-safe-framework"
-
-  - term: "Product Owner / Product Manager"
-    definition: "Person who owns the product backlog and prioritization decisions. Reviews AI feedback analysis weekly and creates backlog items for sprint planning."
-    first_lesson: "04-safe-framework"
-
-  - term: "Product Backlog"
-    definition: "The ordered list of all work items for a solution, maintained by the Product Owner / Product Manager. Grows from tech feedback, metric signals, and stakeholder observations."
-    first_lesson: "04-safe-framework"
+  - term: "Use Case"
+    definition: "A written description of how a user or system interacts with software to accomplish a specific goal. Documents the actors, trigger, main success flow, alternative flows, business rules, and postconditions needed by a development team."
+    first_lesson: "01-use-case-guide"
 
   - term: "Option Set"
     definition: "The 2-4 solution options developed in Phase 1 for Phase 2 scoring. Must contain genuine trade-offs between speed, impact, risk, and cost."
@@ -123,10 +107,6 @@ entries:
     definition: "Structured mechanism where field observations reach someone who can act within a defined timeframe. Has a source, cadence, owner, and connection to sprint backlog."
     first_lesson: "04-feedback-performance"
 
-  - term: "Agile Governance"
-    definition: "Post-implementation management where the solution evolves continuously through sprint cycles based on user feedback. Assumes initial implementation is Version 1."
-    first_lesson: "04-feedback-performance"
-
   - term: "Readiness Baseline"
     definition: "Initial assessment across three dimensions: North Star Vision, Performance Management alignment, and Resource availability."
     first_lesson: "01-change-readiness-baseline"
@@ -146,10 +126,6 @@ entries:
   - term: "Monitoring Cadence"
     definition: "How often metrics are checked: daily (zone-level), weekly (feedback analysis), monthly (trends), quarterly (solution health). Too frequent creates alert fatigue; too infrequent allows drift."
     first_lesson: "04-feedback-performance"
-
-  - term: "Agile"
-    definition: "An iterative approach to software development and project delivery that emphasizes short cycles, continuous feedback, and adaptive planning. Agile teams deliver working increments in 2-week sprints, enabling rapid course correction based on real user feedback rather than upfront speculation."
-    first_lesson: "04-safe-framework"
 
   - term: "Diagnostic Interviews"
     definition: "Early Phase 1 interviews asking 'What is broken? What frustrates you?' to generate qualitative data that combines with quantitative data to validate gaps."
