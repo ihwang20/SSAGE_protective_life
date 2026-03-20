@@ -14,7 +14,7 @@ narrative_synopsis: |
 modules:
   - "01-overview"
   - "02-ai-problem-solving"
+  - "03-use-case-writing"
   - "04-tool-development"
-  - "05-sustainment"
   - "06-change-management"
   - "07-summary"
