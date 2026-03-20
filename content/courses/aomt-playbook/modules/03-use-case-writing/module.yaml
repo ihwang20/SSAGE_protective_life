@@ -1,0 +1,11 @@
+title: "Creating Use Cases"
+slug: "03-use-case-writing"
+description: "A practical guide for business professionals handing off requirements to a software development team."
+objectives:
+  - "Understand the purpose and structure of a use case document"
+  - "Identify and write all 12 key components of a well-formed use case"
+  - "Distinguish use case responsibilities from implementation decisions"
+  - "Apply business rules, alternative flows, and non-functional requirements correctly"
+estimated_duration_minutes: 25
+lessons:
+  - "01-use-case-guide"

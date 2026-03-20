@@ -17,16 +17,16 @@ const sections = [
   },
   {
     num: '03',
-    title: 'AI Tool Development & Agile Delivery',
-    lessons: 5,
-    description: 'Tool development lifecycle, design and prototyping, and Agile delivery approaches',
+    title: 'Creating Use Cases',
+    lessons: 1,
+    description: 'Writing clear, complete use cases that communicate software requirements to development teams',
     color: '#0891B2',
   },
   {
     num: '04',
-    title: 'Performance Management & Sustainment',
+    title: 'AI Tool Development & Agile Delivery',
     lessons: 5,
-    description: 'Sustainment framework, structure alignment, support systems, and feedback loops',
+    description: 'Tool development lifecycle, design and prototyping, and Agile delivery approaches',
     color: '#0D9488',
   },
   {
