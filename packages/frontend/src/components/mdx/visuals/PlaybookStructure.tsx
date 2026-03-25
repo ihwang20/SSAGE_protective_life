@@ -12,8 +12,8 @@ export default function PlaybookStructure() {
           topics: ['Diagnose Data with AI', 'Prioritize Opportunities'],
         },
         {
-          name: 'Chapter II: AI Tool / Solution Development & Agile Delivery',
-          topics: ['Design / Prototype AI Tools', 'Consider Agile Delivery Approach'],
+          name: 'Chapter II: Use Case Development',
+          topics: ['Write Use Cases for Development Teams', 'Design / Prototype AI Tools'],
         },
       ],
     },
@@ -34,16 +34,14 @@ export default function PlaybookStructure() {
     },
     {
       title: 'Section III',
-      sub: 'Organizational Change Management',
-      color: '#7C3AED',
+      sub: 'Guidebook Summary & Next Steps',
+      color: '#374151',
       chapters: [
         {
           name: null,
           topics: [
-            'Change Readiness Baseline and Assessment',
-            'Influence Network Mapping',
-            'Communications Management',
-            'Governance Framework',
+            'Key Takeaways from Each Section',
+            'Preparing to Apply the Methodology',
           ],
         },
       ],
@@ -57,12 +55,12 @@ export default function PlaybookStructure() {
           Guidebook Structure: Three Sections
         </h3>
         <p style={{ fontSize: '0.85rem', color: '#6B7280', marginBottom: '1rem' }}>
-          The guidebook is organized into three interconnected sections covering practice, sustainment, and change management.
+          The guidebook is organized into three interconnected sections covering practice, sustainment, and next steps.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
           {sections.map((s, i) => (
             <div key={i} style={{ border: '1px solid #E5E7EB', borderRadius: 8, overflow: 'hidden' }}>
-              <div style={{ background: s.color, padding: '0.75rem 1rem', color: 'white' }}>
+              <div style={{ background: s.color, padding: '0.75rem 1rem', color: 'white', minHeight: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div style={{ fontSize: '0.7rem', opacity: 0.8, textTransform: 'uppercase' }}>{s.title}</div>
                 <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>{s.sub}</div>
               </div>
