@@ -1,5 +1,5 @@
 services:
-  app:
+  app-ssa:
     build: .
     ports:
       - "3000:3001"
@@ -8,7 +8,22 @@ services:
       - PORT=3001
       - DATABASE_URL=postgresql://playbook:playbook@db:5432/playbook
       - CONTENT_DIR=/app/content
-      - ACTIVE_THEME=${ACTIVE_THEME:-protective-life}
+      - ACTIVE_THEME=ssa
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  app-protective:
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DATABASE_URL=postgresql://playbook:playbook@db:5432/playbook
+      - CONTENT_DIR=/app/content
+      - ACTIVE_THEME=protective-life
     depends_on:
       db:
         condition: service_healthy
